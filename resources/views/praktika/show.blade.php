@@ -4,7 +4,8 @@
 
         <ul class="pager">
             <div class=".col-md-4"><a href="{{url()->previous()}}"> zurück</a></div>
-            <div class=".col-md-4"><a href="{{Route('praktika.edit(1)')}}"> Praktikum bearbeiten</a></div>
+            <div class=".col-md-4"><a href="{{route('praktika.edit',$praktikum->Praktikum_ID)}}"> Praktikum
+                    bearbeiten</a></div>
         </ul>
 
         <div class="table-responsive">

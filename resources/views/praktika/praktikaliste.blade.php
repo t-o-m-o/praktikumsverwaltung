@@ -10,6 +10,7 @@
         <div class="table-responsive">
         <table class="table table-hover table-striped">
             <tr>
+                <th>ID</th>
                 <th>Semester</th>
                 <th>Berufsziel</th>
                 <th>Teilnehmer</th>
@@ -21,6 +22,8 @@
             </tr>
             @foreach($praktika as $praktikum)
                 <tr>
+                    <td><a href="{{route('praktika.show',$praktikum->Praktikum_ID)}}"> {{$praktikum->Praktikum_ID}}</a>
+                    </td>
                     <?php $semester = $praktikum->teilnehmer->semester  ?>
                     <td><a href="semester/{{$semester['Semester_ID']}}">{{ $semester['Semesterbezeichnung']}}</a></td>
                     <td>{{ $praktikum->teilnehmer->berufsziel['Berufszielbezeichnung']}} </td>

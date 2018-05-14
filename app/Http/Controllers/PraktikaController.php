@@ -57,7 +57,6 @@ class Praktikacontroller extends Controller
         $praktikum->Status = request('status');
         $praktikum->save();
         redirect('/public/praktika/praktikaliste/');
-
     }
 
     /**
@@ -68,7 +67,7 @@ class Praktikacontroller extends Controller
      */
     public function show(praktika $praktika)
     {
-        $praktikum = praktika::find($praktika)->first();
+        $praktikum = praktika::where('Praktikum_ID', $praktika->Praktikum_ID)->first();
         return view('praktika.show',compact('praktikum'));
     }
 
