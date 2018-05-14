@@ -85,7 +85,7 @@
                 <div class="links">
                    {{-- <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
                     <a href="{{ route('firmen.index') }}">Firmen</a>--}}
-                    <a href="{{ route('Praktikaliste') }}">Praktika</a>
+                    <a href="{{ route('praktika.index') }}">Praktika</a>
                 </div>
             </div>
         </div>

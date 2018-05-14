@@ -68,7 +68,7 @@ class Praktikacontroller extends Controller
      */
     public function show(praktika $praktika)
     {
-        $praktikum = praktika::find($praktika);
+        $praktikum = praktika::find($praktika)->first();
         return view('praktika.show',compact('praktikum'));
     }
 

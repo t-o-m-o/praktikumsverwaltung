@@ -4,8 +4,9 @@
 
         <ul class="pager">
             <div class=".col-md-4"><a href="{{url()->previous()}}"> zurück</a></div>
-            <div class=".col-md-4"><a href="{{Route('praktika.edit')}}"> Praktikum bearbeiten</a></div>
+            <div class=".col-md-4"><a href="{{Route('praktika.edit(1)')}}"> Praktikum bearbeiten</a></div>
         </ul>
+
         <div class="table-responsive">
         <table class="table table-hover table-striped">
             <tr>
@@ -17,14 +18,13 @@
                 <td>Ende</td>
             </tr>
             <tr>
-                <td>{{ $praktikum->Praktium_ID}}</td>
-                <td>{{ $praktikum->firmen}}</td>
+                <td>{{ $praktikum->Praktikum_ID}}</td>
+                <td>{{ $praktikum->firmen->Firmenname}}</td>
                 <td>{{ $praktikum->Status}}</td>
-                <td>{{ $praktikum->teilnehmer }}</td>
-                <td>{{ $praktikum->praktikazeitraeume->start}}</td>
-                <td>{{ $praktikum->praktikazeitraeume->ende}}</td>
+                <td>{{ $praktikum->teilnehmer->Nachname }}</td>
+                <td>{{ $praktikum->praktikazeitraeume->Start}}</td>
+                <td>{{ $praktikum->praktikazeitraeume->Ende}}</td>
             </tr>
-
         </table>
         </div>
     </div>

@@ -22,7 +22,6 @@ Route::get('/register', function () {
     return view('login');
 })->name('register');
 
-//Route::get('Praktikaliste','PraktikaController@index')->name('Praktikaliste');
 
 Route::resource('ansprechpartner','AnsprechpartnerController');
 Route::resource('firmen','FirmenController');
