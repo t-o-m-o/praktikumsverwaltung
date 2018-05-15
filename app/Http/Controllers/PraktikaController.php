@@ -14,18 +14,6 @@ class Praktikacontroller extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $praktika = praktika::paginate(25);
-        //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
-        return view('praktika.praktikaliste',compact('praktika'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -38,7 +26,7 @@ class Praktikacontroller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -62,7 +50,7 @@ class Praktikacontroller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\praktika  $praktika
+     * @param  \App\praktika $praktika
      * @return \Illuminate\Http\Response
      */
     public function show(praktika $praktika)
@@ -85,7 +73,7 @@ class Praktikacontroller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  \App\praktika  $praktika
      * @return \Illuminate\Http\Response
      */
@@ -98,7 +86,8 @@ class Praktikacontroller extends Controller
             'status' => 'required'
         ]);
 
-        $praktika->update(array('Firmen_ID' => request('firma'),
+        $praktika->update(array(
+            'Firmen_ID' => request('firma'),
             'Praktikumszeit_ID' => request('firma'),
             'Status' => request('status')));
         $praktika->save();
@@ -115,6 +104,19 @@ class Praktikacontroller extends Controller
     public function destroy(praktika $praktika)
     {
         $praktika->delete();
-        redirect(route('praktika'));
+        //redirect(route('praktika'));
+        $this->index();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $praktika = praktika::paginate(25);
+        //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
+        return view('praktika.praktikaliste', compact('praktika'));
     }
 }

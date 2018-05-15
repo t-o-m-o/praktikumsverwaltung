@@ -13,15 +13,11 @@
     ?>
     <div class="container">
 
-        <ul class="pager">
-            <div class=".col-md-4"><a href="{{url()->previous()}}"> zurück</a></div>
-
-        </ul>
-
-
+        <div class="row">
+            <div class=".col-sm-4"><a href="{{url()->previous()}}" class="btn btn-info"> zurück</a></div>
+        </div>
+        <hr class="mb-4">
         <div class="form-group">
-            {{--
-            {{Form::model($nerd, array('route' => array('nerds.update', $nerd->id), 'method' => 'PUT')) }}--}}
             {{Form::open(array('route' => array('praktika.update',$praktika),'method' => 'PUT' ) )}}
             <div class="mb-3">
                 <label for="firma">Firma</label>

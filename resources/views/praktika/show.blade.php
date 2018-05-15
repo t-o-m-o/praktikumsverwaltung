@@ -2,11 +2,19 @@
 @section('content')
     <div class="container">
 
-        <ul class="pager">
-            <div class=".col-md-4"><a href="{{url()->previous()}}"> zurück</a></div>
-            <div class=".col-md-4"><a href="{{route('praktika.edit',$praktika)}}"> Praktikum
-                    bearbeiten</a></div>
-        </ul>
+        <div class="row">
+            <div class=".col-sm-4">
+                <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
+            </div>
+            <div class=".col-sm-4">
+                <a href="{{route('praktika.edit',$praktika)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
+            </div>
+            <div class=".col-sm-4">
+                {{Form::open(array('route' => array('praktika.destroy',$praktika),'method' => 'DELETE' ) )}}
+                {{ Form::submit('Praktikum löschen', array('class' => 'btn btn-danger')) }}
+                {{ Form::close() }}
+            </div>
+        </div>
 
         <div class="table-responsive">
         <table class="table table-hover table-striped">

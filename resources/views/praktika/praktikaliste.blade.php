@@ -2,11 +2,13 @@
 @section('content')
     <div class="container">
 
-        <ul class="pager">
-            <div class=".col-md-4"><a href="{{url()->previous()}}"> zurück</a></div>
-            <div class=".col-md-4"><a href="{{Route('praktika.create')}}"> Praktikum hinzufügen</a></div>
-            {{$praktika->links() }}
-        </ul>
+        <div class="row">
+            <div class=".col-sm-4"><a href="{{url()->previous()}}" class="btn btn-info"> zurück</a></div>
+            <div class=".col-sm-4"><a href="{{Route('praktika.create')}}" class="btn btn-info"> Praktikum hinzufügen</a>
+            </div>
+        </div>
+        <ul class="pager">{{$praktika->links() }}</ul>
+        <hr class="mb-4">
         <div class="table-responsive">
         <table class="table table-hover table-striped">
             <tr>
