@@ -79,7 +79,8 @@ class Praktikacontroller extends Controller
      */
     public function edit(praktika $praktika)
     {
-        //
+      $praktikum = praktika::where('Praktikum_ID', $praktika->Praktikum_ID)->first();
+      return view('praktika.edit',compact('praktikum'));
     }
 
     /**

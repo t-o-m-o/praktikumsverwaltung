@@ -7,6 +7,56 @@
 
         </ul>
 
+
+
+
+
+
+
+
+
+        <div class="form-group">
+            {{Form::open(array('route' => array('praktika.update') ) )}}
+            <div class="mb-3">
+                <label for="status">Status</label>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="status" id="status" value="{{old('status')}}">
+                </div>
+            </div>
+
+            </div>
+
+            {{ Form::close() }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tr>
