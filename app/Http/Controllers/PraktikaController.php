@@ -56,7 +56,7 @@ class Praktikacontroller extends Controller
         $praktikum->Praktikumszeit_ID = request('zeit');
         $praktikum->Status = request('status');
         $praktikum->save();
-        redirect('/public/praktika/praktikaliste/');
+        redirect(route('praktika/show', compact($praktikum)));
     }
 
     /**
@@ -67,8 +67,7 @@ class Praktikacontroller extends Controller
      */
     public function show(praktika $praktika)
     {
-        $praktikum = praktika::where('Praktikum_ID', $praktika->Praktikum_ID)->first();
-        return view('praktika.show',compact('praktikum'));
+        return view('praktika.show', compact('praktika'));
     }
 
     /**
@@ -79,8 +78,8 @@ class Praktikacontroller extends Controller
      */
     public function edit(praktika $praktika)
     {
-      $praktikum = praktika::where('Praktikum_ID', $praktika->Praktikum_ID)->first();
-      return view('praktika.edit',compact('praktikum'));
+
+        return view('praktika.edit', compact('praktika'));
     }
 
     /**
@@ -92,7 +91,19 @@ class Praktikacontroller extends Controller
      */
     public function update(Request $request, praktika $praktika)
     {
-        //
+        $request->validate([
+            'teilnehmer' => 'exists:teilnehmer,Teilnehmer_ID',
+            'firma' => 'exists:firmen,Firmen_ID',
+            'zeit' => 'exists:praktikazeitraeume,Praktikumszeit_ID',
+            'status' => 'required'
+        ]);
+
+        $praktika->update(array('Firmen_ID' => request('firma'),
+            'Praktikumszeit_ID' => request('firma'),
+            'Status' => request('status')));
+        $praktika->save();
+        redirect(route('praktika.show', $praktika));
+
     }
 
     /**
@@ -103,6 +114,7 @@ class Praktikacontroller extends Controller
      */
     public function destroy(praktika $praktika)
     {
-        //
+        $praktika->delete();
+        redirect(route('praktika'));
     }
 }

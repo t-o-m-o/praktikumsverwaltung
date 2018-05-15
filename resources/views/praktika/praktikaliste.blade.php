@@ -22,7 +22,7 @@
             </tr>
             @foreach($praktika as $praktikum)
                 <tr>
-                    <td><a href="{{route('praktika.show',$praktikum->Praktikum_ID)}}"> {{$praktikum->Praktikum_ID}}</a>
+                    <td><a href="{{route('praktika.show',$praktikum)}}"> {{$praktikum->Praktikum_ID}}</a>
                     </td>
                     <?php $semester = $praktikum->teilnehmer->semester  ?>
                     <td><a href="semester/{{$semester['Semester_ID']}}">{{ $semester['Semesterbezeichnung']}}</a></td>
