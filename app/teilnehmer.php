@@ -22,7 +22,7 @@ class Teilnehmer extends Model
 
     public function semester()
     {
-        return $this->hasOne(semester::class,'Semester_ID','Semester_ID');
+        return $this->belongsTo(semester::class,'Semester_ID','Semester_ID');
     }
 
     public function berufsziel()

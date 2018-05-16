@@ -16,7 +16,7 @@ class semester extends Model
 
     public function teilnehmer()
     {
-        return $this->belongsTo(teilnehmer::class,'Semsester_ID','Semsester_ID');
+        return $this->hasMany(teilnehmer::class,'Semester_ID','Semester_ID');
     }
 
     public function praktika()
