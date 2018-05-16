@@ -44,7 +44,7 @@ class Praktikacontroller extends Controller
         $praktikum->Praktikumszeit_ID = request('zeit');
         $praktikum->Status = request('status');
         $praktikum->save();
-        redirect(route('praktika/show', compact($praktikum)));
+        redirect(route('praktika.show', compact($praktikum)));
     }
 
     /**

@@ -20,7 +20,8 @@ class Semestercontroller extends Controller
      */
     public function index()
     {
-        //
+        $semester = semester::paginate(25);
+        return view('semester.semesterliste', compact('semester'));
     }
 
     /**
@@ -30,7 +31,7 @@ class Semestercontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('semester.create');
     }
 
     /**
@@ -41,7 +42,11 @@ class Semestercontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['bezeichnung' => 'required']);
+        $semester = new Semester;
+        $semester->Semesterbezeichnung = request('bezeichnung');
+        $semester->save();
+        redirect(route('semester.show', $semester));
     }
 
     /**
@@ -52,8 +57,7 @@ class Semestercontroller extends Controller
      */
     public function show(semester $semester)
     {
-        $semester = $semester->praktika;
-        return view('semester.semester',compact('semester'));
+        return view('semester.show',compact('semester'));
     }
 
     /**
@@ -64,7 +68,7 @@ class Semestercontroller extends Controller
      */
     public function edit(semester $semester)
     {
-        //
+        return view('semester.edit', compact('semester'));
     }
 
     /**
@@ -76,7 +80,11 @@ class Semestercontroller extends Controller
      */
     public function update(Request $request, semester $semester)
     {
-        //
+        $request->validate(['bezeichnung' => 'required']);
+
+        $semester->update(array('Semesterbezeichnung' => request('bezeichnung')));
+        $semester->save();
+        redirect(route('semester.show', $semester));
     }
 
     /**
@@ -87,7 +95,8 @@ class Semestercontroller extends Controller
      */
     public function destroy(semester $semester)
     {
-        //
+        $semester->delete();
+        $this->index();
     }
 
     public static function asArray()
