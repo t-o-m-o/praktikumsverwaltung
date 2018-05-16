@@ -7,10 +7,10 @@
                 <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
             </div>
             <div class=".col-sm-4">
-                <a href="{{route('teilnehmer.edit',$teilnehmer)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
+                <a href="{{route('praktika.edit',$praktika)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
             </div>
             <div class=".col-sm-4">
-                {{Form::open(array('route' => array('teilnehmer.destroy',$teilnehmer),'method' => 'DELETE' ) )}}
+                {{Form::open(array('route' => array('praktika.destroy',$praktika),'method' => 'DELETE' ) )}}
                 {{ Form::submit('Praktikum löschen', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}
             </div>
@@ -27,12 +27,12 @@
                 <td>Ende</td>
             </tr>
             <tr>
-                <td>{{ $teilnehmer->Praktikum_ID}}</td>
-                <td>{{ $teilnehmer->firmen->Firmenname}}</td>
-                <td>{{ $teilnehmer->Status}}</td>
-                <td>{{ $teilnehmer->teilnehmer->Nachname }}</td>
-                <td>{{ $teilnehmer->praktikazeitraeume->Start}}</td>
-                <td>{{ $teilnehmer->praktikazeitraeume->Ende}}</td>
+                <td>{{ $praktika->Praktikum_ID}}</td>
+                <td>{{ $praktika->firmen->Firmenname}}</td>
+                <td>{{ $praktika->Status}}</td>
+                <td>{{ $praktika->teilnehmer->Nachname }}</td>
+                <td>{{ $praktika->praktikazeitraeume->Start}}</td>
+                <td>{{ $praktika->praktikazeitraeume->Ende}}</td>
             </tr>
         </table>
         </div>
