@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class Firmencontroller extends Controller
 {
+    public static function asArray()
+    {
+        $firmen = firmen::all();
+        return $firmen;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class Firmencontroller extends Controller
      */
     public function index()
     {
-        //
+        $firmen = firmen::paginate(25);
+        return view('firmen.index', compact('firmen'));
     }
 
     /**
@@ -46,7 +53,7 @@ class Firmencontroller extends Controller
      */
     public function show(firmen $firmen)
     {
-        //
+        return view('firmen.show', compact('firmen'));
     }
 
     /**
@@ -81,12 +88,5 @@ class Firmencontroller extends Controller
     public function destroy(firmen $firmen)
     {
         //
-    }
-
-
-    public static function asArray()
-    {
-        $firmen = firmen::all();
-        return $firmen;
     }
 }

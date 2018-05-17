@@ -116,7 +116,6 @@ class Praktikacontroller extends Controller
     public function index()
     {
         $praktika = praktika::paginate(25);
-        //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
         return view('praktika.praktikaliste', compact('praktika'));
     }
 }
