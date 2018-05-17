@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\praktika;
 use Illuminate\Http\Request;
 
-class Praktikacontroller extends Controller
+class PraktikaController extends Controller
 {
 
     public function __construct()

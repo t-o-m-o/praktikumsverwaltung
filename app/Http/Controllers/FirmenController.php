@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\firmen;
 use Illuminate\Http\Request;
 
-class Firmencontroller extends Controller
+class FirmenController extends Controller
 {
     public static function asArray()
     {

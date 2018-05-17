@@ -27,11 +27,15 @@
                     <td><a href="{{route('praktika.show',$praktikum)}}"> {{$praktikum->Praktikum_ID}}</a>
                     </td>
                     <?php $semester = $praktikum->teilnehmer->semester  ?>
-                    <td><a href="semester/{{$semester['Semester_ID']}}">{{ $semester['Semesterbezeichnung']}}</a></td>
-                    <td>{{ $praktikum->teilnehmer->berufsziel['Berufszielbezeichnung']}} </td>
-                    <td>{{ $praktikum->teilnehmer->Nachname }}</td>
-                    <td>{{ $praktikum->firmen->Firmenname }}</td>
-                    <td>{{ $praktikum['Status'] }}</td>
+                    <td><a href="{{route('semester.show',$semester)}}">{{ $semester['Semesterbezeichnung']}}</a></td>
+                    <td>
+                        <a href="{{route('berufsziel.show',$praktikum->teilnehmer->berufsziel)}}">{{ $praktikum->teilnehmer->berufsziel['Berufszielbezeichnung']}}</a>
+                    </td>
+                    <td>
+                        <a href="{{route('teilnehmer.show',$praktikum->teilnehmer)}}"> {{$praktikum->teilnehmer->Nachname}}</a>
+                    <td><a href="{{route('firmen.show',$praktikum->firmen)}}">{{ $praktikum->firmen->Firmenname}}</a>
+                    </td>
+                    <td><a href="{{route('praktika.show',$praktikum)}}">{{ $praktikum['Status'] }}</a></td>
                     <td>{{ $praktikum->praktikazeitraeume['Start'] }}</td>
                     <td>{{ $praktikum->praktikazeitraeume['Ende'] }}</td>
                     <?php $ansprechpartner = $praktikum->firmen->ansprechpartner->first()?>

@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'name' => 'Praktikumsliste',
-    'subtitle' => 'Praktikumsliste',
+    'name' => 'Praktikumsverwaltung',
+    'subtitle' => 'Praktikumsverwaltung',
     /*
     |--------------------------------------------------------------------------
     | Application Environment

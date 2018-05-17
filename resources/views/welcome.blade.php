@@ -78,14 +78,16 @@
             @endif
 
             <div class="content">
+                <div class="links">
+                    <a href="{{ route('praktika.index') }}">Praktika</a>
+                    <a href="{{ route('firmen.index') }}">Firmen</a>
+                </div>
                 <div class="title m-b-md">
                     Praktikumsverwaltung
                 </div>
 
                 <div class="links">
-                   {{-- <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
-                    <a href="{{ route('firmen.index') }}">Firmen</a>--}}
-                    <a href="{{ route('praktika.index') }}">Praktika</a>
+                    <a href="{{ route('semester.index') }}">Semester</a>
                 </div>
             </div>
         </div>

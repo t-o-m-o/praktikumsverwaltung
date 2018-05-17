@@ -24,10 +24,11 @@ Route::get('/register', function () {
 
 
 Route::resource('ansprechpartner','AnsprechpartnerController');
-Route::resource('firmen','FirmenController');
+Route::resource('firmen', 'FirmenController', ['parameters' => ['firmen' => 'firmen']]);
 Route::resource('praktika','PraktikaController');
 Route::resource('semester','SemesterController');
 Route::resource('teilnehmer','TeilnehmerController');
+Route::resource('berufsziel', 'BerufszielController');
 
 //Route::get('Praktikum/{Praktika_ID}','PraktikaController@show');
 //Route::get('add','PraktikaController@create');

@@ -22,7 +22,8 @@ class AnsprechpartnerController extends Controller
      */
     public function index()
     {
-        //
+        $ansprechpartner = ansprechpartner::paginate(25);
+        return view('ansprechpartner.index', compact('ansprechpartner'));
     }
 
     /**
@@ -54,8 +55,7 @@ class AnsprechpartnerController extends Controller
      */
     public function show(ansprechpartner $ansprechpartner)
     {
-        $ansprechpartner = ansprechpartner::find($ansprechpartner);
-        return view('ansprechpartner.ansprechpartner',compact('ansprechpartner'));
+        return view('ansprechpartner.show', compact('ansprechpartner'));
     }
 
     /**
