@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\praktika;
 use Illuminate\Http\Request;
 
-class PraktikaController extends Controller
+class Praktikacontroller extends Controller
 {
 
     public function __construct()
@@ -44,7 +44,7 @@ class PraktikaController extends Controller
         $praktikum->Praktikumszeit_ID = request('zeit');
         $praktikum->Status = request('status');
         $praktikum->save();
-        redirect(route('praktika.show', compact($praktikum)));
+        return redirect(route('praktika.show', compact($praktikum)));
     }
 
     /**
@@ -91,7 +91,7 @@ class PraktikaController extends Controller
             'Praktikumszeit_ID' => request('firma'),
             'Status' => request('status')));
         $praktika->save();
-        redirect(route('praktika.show', $praktika));
+        return redirect(route('praktika.show', $praktika));
 
     }
 
@@ -104,8 +104,7 @@ class PraktikaController extends Controller
     public function destroy(praktika $praktika)
     {
         $praktika->delete();
-        //redirect(route('praktika'));
-        $this->index();
+        return $this->index();
     }
 
     /**
