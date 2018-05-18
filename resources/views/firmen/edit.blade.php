@@ -1,16 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-    <?php
-    use App\Http\Controllers\FirmenController;
-    use App\Http\Controllers\TeilnehmerController;
-    use App\Http\Controllers\PraktikazeitraeumeController;
-
-    $firmen = FirmenController::asArray();
-    $teilnehmerliste = TeilnehmerController::asArray();
-    $zeitraueme = PraktikazeitraeumeController::asArray();
-
-    ?>
     <div class="container">
 
         <div class="row">
@@ -18,77 +8,73 @@
         </div>
         <hr class="mb-4">
         <div class="form-group">
-            {{Form::open(array('route' => array('praktika.update',$praktika),'method' => 'PUT' ) )}}
+            {{Form::open(array('route' => array('firmen.update',$firmen),'method' => 'PUT' ) )}}
             <div class="mb-3">
-                <label for="firma">Firma</label>
+                <label for="status">Name</label>
 
                 <div class="input-group">
-                    <select name="firma" class="form-control">
-                        <option value="">"Bitte Firma auswählen"</option>
-                        @foreach ($firmen as $firma)
-                            <option
-                                    @if ($firma->Firmen_ID == $praktika->Firmen_ID)
-                                    selected
-                                    @endif
-                                    value="{{$firma->Firmen_ID}}">
-                                {{$firma->Firmenname}}
-                            </option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" name="name" id="name" value="{{$firmen->Firmenname}}">
+                </div>
+        </div>
+
+            <div class="mb-3">
+                <label for="bezeichnung">Bezeichnung</label>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="bezeichnung" id="bezeichnung"
+                           value="{{$firmen->Firmenbezeichnung}}">
+            </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="strasse">Strasse</label>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="strasse" id="strasse" value="{{$firmen->Strasse}}">
+            </div>
+            </div>
+            <div class="mb-3">
+                <label for="ort">Ort</label>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="ort" id="ort" value="{{$firmen->Ort}}">
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="teilnehmer">Teilnehmer</label>
+                <label for="plz">PLZ</label>
 
                 <div class="input-group">
-                    <select name="teilnehmer" class="form-control">
-                        <option value="">"Bitte Teilnehmer auswählen"</option>
-                        @foreach ($teilnehmerliste as $teilnehmer)
-                            <option
-                                    @if ($teilnehmer->Teilnehmer_ID == $praktika->Teilnehmer_ID)
-                                    selected
-                                    @endif
-                                    value="{{$teilnehmer->Teilnehmer_ID}}">
-                                {{$teilnehmer->Nachname}} &nbsp;&nbsp;&nbsp;
-                                {{$teilnehmer->Vorname}}
-                            </option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" name="plz" id="plz" value="{{$firmen->PLZ}}">
+            </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="telefon">Telefon</label>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="telefon" id="telefon" value="{{$firmen->Telefon}}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email">E-Mail</label>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="email" id="email" value="{{$firmen->Email}}">
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="zeit">Zeit</label>
+                <label for="webseite">Webseite</label>
 
                 <div class="input-group">
-                    <select name="zeit" class="form-control">
-                        <option value="">"Bitte Zeitraum auswählen"</option>
-                        @foreach ($zeitraueme as $zeitraum)
-                            <option
-                                    @if ($zeitraum->Praktikumszeit_ID == $praktika->Praktikumszeit_ID))
-                                    selected
-                                    @endif
-                                    value="{{$zeitraum->Praktikumszeit_ID}}">{{$zeitraum->Start}}
-                                bis {{$zeitraum->Ende}}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="status">Status</label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control" name="status" id="status" value="{{$praktika->Status}}">
+                    <input type="text" class="form-control" name="webseite" id="webseite"
+                           value="{{$firmen->Firmenwebseite}}">
                 </div>
             </div>
 
             <hr class="mb-4">
-
-            <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Praktikum bearbeiten</button>
-
+            <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Firma bearbeiten</button>
         </div>
 
 
@@ -103,7 +89,7 @@
                         <li>{{$error}}</li>
                     @endforeach
                 </ul>
-            </div>
+        </div>
 
         @endif
 

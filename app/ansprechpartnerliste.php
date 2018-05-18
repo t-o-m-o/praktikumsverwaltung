@@ -14,14 +14,14 @@ class ansprechpartnerliste extends Model
 
     public function ansprechpartner()
     {
-        return $this->hasMany(ansprechpartner::class,'Ansprechpartner_ID','Ansprechpartner_ID');
+        return $this->hasOne(ansprechpartner::class, 'Ansprechpartner_ID', 'Ansprechpartner_ID');
     }
-/*
+
     public function berufsziel()
     {
-        return $this->hasOne(berufsziel::class);
+        return $this->hasOne(berufsziel::class, 'Berufsziel_ID', 'Berufsziel_ID');
     }
-*/
+
     public function firmen()
     {
         return $this->hasMany(firmen::class,'Firmen_ID','Firmen_ID');
