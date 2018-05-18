@@ -25,13 +25,13 @@
                 @foreach($firmen as $firma)
                     <tr>
                         <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmen_ID}}</a></td>
-                        <td>{{ $firma->Firmenname}} </td>
-                        <td>{{ $firma->Firmenbezeichnung}} </td>
-                        <td>{{ $firma->Firmenwebseite}} </td>
-                        <td>{{ $firma->Email}} </td>
-                        <td>{{ $firma->Strasse}} </td>
-                        <td>{{ $firma->Ort}} </td>
-                        <td>{{ $firma->PLZ}} </td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmenname}}</a></td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmenbezeichnung}}</a></td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmenwebseite}}</a></td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Email}}</a></td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Strasse}}</a></td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Ort}}</a></td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->PLZ}}</a></td>
                     </tr>
                 @endforeach
             </table>

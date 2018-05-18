@@ -9,8 +9,7 @@ class FirmenController extends Controller
 {
     public static function asArray()
     {
-        $firmen = firmen::all();
-        return $firmen;
+        return firmen::all();
     }
 
     /**

@@ -10,20 +10,7 @@ class AnsprechpartnerController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $ansprechpartner = ansprechpartner::paginate(25);
-        return view('ansprechpartner.index', compact('ansprechpartner'));
+        //$this->middleware('auth');
     }
 
     /**
@@ -33,7 +20,7 @@ class AnsprechpartnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('ansprechpartner.create');
     }
 
     /**
@@ -66,7 +53,7 @@ class AnsprechpartnerController extends Controller
      */
     public function edit(ansprechpartner $ansprechpartner)
     {
-        //
+        return view('ansprechpartner.edit', compact('ansprechpartner'));
     }
 
     /**
@@ -89,6 +76,18 @@ class AnsprechpartnerController extends Controller
      */
     public function destroy(ansprechpartner $ansprechpartner)
     {
-        //
+        $ansprechpartner->delete();
+        return $this->index();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $ansprechpartner = ansprechpartner::paginate(25);
+        return view('ansprechpartner.index', compact('ansprechpartner'));
     }
 }

@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-
-
         <div class="container">
             <h2>{{ $firmen->Firmenname}}</h2>
 
@@ -67,7 +65,6 @@
         <hr class="mb-4">
         <?php $praktikantenliste = $firmen->praktika ?>
         <h3>Praktikanten</h3>
-
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tr>
