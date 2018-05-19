@@ -9,8 +9,7 @@ class Praktikazeitraeumecontroller extends Controller
 {
     public static function asArray()
     {
-        $zeitraueme = praktikazeitraeume::all();
-        return $zeitraueme;
+        return praktikazeitraeume::all();
     }
 
     /**
@@ -26,18 +25,25 @@ class Praktikazeitraeumecontroller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['start' => 'required'],
+            ['ende' => 'required']
+        );
+        $praktikazeitraeume = new praktikazeitraeume;
+        $praktikazeitraeume->Start = request('start');
+        $praktikazeitraeume->Ende = request('ende');
+        $praktikazeitraeume->save();
+        return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\praktikazeitraeume  $praktikazeitraeume
+     * @param  \App\praktikazeitraeume $praktikazeitraeume
      * @return \Illuminate\Http\Response
      */
     public function show(praktikazeitraeume $praktikazeitraeume)
@@ -48,7 +54,7 @@ class Praktikazeitraeumecontroller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\praktikazeitraeume  $praktikazeitraeume
+     * @param  \App\praktikazeitraeume $praktikazeitraeume
      * @return \Illuminate\Http\Response
      */
     public function edit(praktikazeitraeume $praktikazeitraeume)
@@ -59,19 +65,28 @@ class Praktikazeitraeumecontroller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\praktikazeitraeume  $praktikazeitraeume
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\praktikazeitraeume $praktikazeitraeume
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, praktikazeitraeume $praktikazeitraeume)
     {
-        //
+        $request->validate(['start' => 'required'],
+            ['ende' => 'required']
+        );
+
+        $praktikazeitraeume->update(
+            array('Start' => request('start'),
+                'Ende' => request('ende')
+            ));
+        $praktikazeitraeume->save();
+        return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\praktikazeitraeume  $praktikazeitraeume
+     * @param  \App\praktikazeitraeume $praktikazeitraeume
      * @return \Illuminate\Http\Response
      */
     public function destroy(praktikazeitraeume $praktikazeitraeume)

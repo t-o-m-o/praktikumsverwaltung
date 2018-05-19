@@ -4,53 +4,25 @@
     <div class="container">
 
         <div class="form-group">
-            {{Form::open(array('route' => array('ansprechpartner.store') ) )}}
-            <div class="mb-3">
-                <label for="status">Name</label>
+            {{Form::open(array('route' => array('praktikazeitraeume.store') ) )}}
 
+            <div class="mb-3">
+                <label for="status">Start</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="name" id="name" value="{{old('name')}}">
+                    <input type="date" class="form-control" name="start" id="start" value="{{old('start')}}">
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="vorname">Vorname</label>
-
+                <label for="vorname">Ende</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="vorname" id="vorname"
-                           value="{{old('vorname')}}">
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="status">Name</label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control" name="name" id="name"
-                           value="{{old('name')}}">
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="telefon">Telefon</label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control" name="telefon" id="telefon"
-                           value="{{old('telefon')}}">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="email">E-Mail</label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control" name="email" id="email"
-                           value="{{old('email')}}">
+                    <input type="date" class="form-control" name="ende" id="ende" value="{{old('ende')}}">
                 </div>
             </div>
 
             <hr class="mb-4">
 
-            <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Ansprechpartner hinzufügen
+            <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Zeitraum hinzufügen
             </button>
 
             {{ Form::close() }}

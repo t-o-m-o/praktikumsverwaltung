@@ -8,47 +8,25 @@
         </div>
         <hr class="mb-4">
         <div class="form-group">
-            {{Form::open(array('route' => array('ansprechpartner.update',$ansprechpartner),'method' => 'PUT' ) )}}
+            {{Form::open(array('route' => array('praktikazeitraeume.update',$praktikazeitraeume),'method' => 'PUT' ) )}}
 
             <div class="mb-3">
-                <label for="vorname">Vorname</label>
-
+                <label for="status">Start</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="vorname" id="vorname"
-                           value="{{$ansprechpartner->Vorname}}">
+                    <input type="date" class="form-control" name="start" id="start"
+                           value="{{$praktikazeitraeume->Start}}">
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="status">Name</label>
-
+                <label for="vorname">Ende</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="name" id="name"
-                           value="{{$ansprechpartner->Nachname}}">
+                    <input type="date" class="form-control" name="ende" id="ende" value="{{$praktikazeitraeume->Ende}}">
                 </div>
             </div>
-
-            <div class="mb-3">
-                <label for="telefon">Telefon</label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control" name="telefon" id="telefon"
-                           value="{{$ansprechpartner->Telefon}}">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="email">E-Mail</label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control" name="email" id="email"
-                           value="{{$ansprechpartner->Email}}">
-                </div>
-            </div>
-
 
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Ansprechpartner bearbeiten
-            </button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Zeitraum bearbeiten</button>
         </div>
 
 
