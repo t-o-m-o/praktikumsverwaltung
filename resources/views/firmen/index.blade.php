@@ -20,8 +20,8 @@
                     <th>Straße</th>
                     <th>PLZ</th>
                     <th>Ort</th>
-
                 </tr>
+
                 @foreach($firmen as $firma)
                     <tr>
                         <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmen_ID}}</a></td>
@@ -30,8 +30,8 @@
                         <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmenwebseite}}</a></td>
                         <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Email}}</a></td>
                         <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Strasse}}</a></td>
-                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Ort}}</a></td>
                         <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->PLZ}}</a></td>
+                        <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Ort}}</a></td>
                     </tr>
                 @endforeach
             </table>

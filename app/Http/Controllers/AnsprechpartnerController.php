@@ -87,7 +87,12 @@ class AnsprechpartnerController extends Controller
             'Telefon' => request('telefon'),
             'Email' => request('email')
         ));
-        $ansprechpartner->save();
+        try {
+            $ansprechpartner->save();
+        } catch (\Exception  $e) {
+            return view('ansprechpartner.edit', $ansprechpartner)->withErrors($e->getMessage());
+        }
+
         return redirect(route('ansprechpartner.show', $ansprechpartner));
     }
 
@@ -99,7 +104,12 @@ class AnsprechpartnerController extends Controller
      */
     public function destroy(ansprechpartner $ansprechpartner)
     {
-        $ansprechpartner->delete();
+        try {
+            $ansprechpartner->delete();
+        } catch (\Exception  $e) {
+            return view('ansprechpartner.show', $ansprechpartner)->withErrors($e->getMessage());
+        }
+
         return $this->index();
     }
 

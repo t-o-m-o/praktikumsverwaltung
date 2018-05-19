@@ -79,10 +79,11 @@
 
             <div class="content">
                 <div class="links">
-                    <a href="{{ route('teilnehmer.index') }}">todo: Teilnehmer</a>
-                    <a href="{{ route('firmen.index') }}">Firmen</a>
                     <a href="{{ route('praktika.index') }}">Praktika</a>
+                    <a href="{{ route('firmen.index') }}">Firmen</a>
+                    <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
                     <a href="{{ route('ansprechpartner.index') }}">Ansprechpartner</a>
+                    <a href="{{ route('ansprechpartnerliste.create') }}">Ansprechpartner verbinden</a>
                 </div>
                 <div class="title m-b-md">
                     Praktikumsverwaltung
@@ -90,8 +91,8 @@
 
                 <div class="links">
                     <a href="{{ route('semester.index') }}">Semester</a>
-                    <a href="{{ route('berufsziel.index') }}">Berufsziel</a>
                     <a href="{{ route('praktikazeitraeume.index') }}">Praktikazeiträume</a>
+                    <a href="{{ route('berufsziel.index') }}">Berufsziel</a>
                 </div>
             </div>
         </div>

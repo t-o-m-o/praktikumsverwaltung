@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ansprechpartnerliste;
 use App\praktika;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,7 @@ class Praktikacontroller extends Controller
         $praktikum->Praktikumszeit_ID = request('zeit');
         $praktikum->Status = request('status');
         $praktikum->save();
+
         return redirect(route('praktika.show', compact($praktikum)));
     }
 
