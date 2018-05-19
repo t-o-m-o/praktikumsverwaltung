@@ -36,7 +36,11 @@ class Praktikazeitraeumecontroller extends Controller
         $praktikazeitraeume = new praktikazeitraeume;
         $praktikazeitraeume->Start = request('start');
         $praktikazeitraeume->Ende = request('ende');
-        $praktikazeitraeume->save();
+        try {
+            $praktikazeitraeume->save();
+        } catch (\Exception $e) {
+            return view('praktikazeitraeume.create')->withErrors($e->getMessage());
+        }
         return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
     }
 
@@ -79,7 +83,11 @@ class Praktikazeitraeumecontroller extends Controller
             array('Start' => request('start'),
                 'Ende' => request('ende')
             ));
-        $praktikazeitraeume->save();
+        try {
+            $praktikazeitraeume->save();
+        } catch (\Exception $e) {
+            return view('praktikazeitraeume.edit', $praktikazeitraeume)->withErrors($e->getMessage());
+        }
         return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
     }
 
@@ -91,7 +99,11 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function destroy(praktikazeitraeume $praktikazeitraeume)
     {
-        $praktikazeitraeume->delete();
+        try {
+            $praktikazeitraeume->delete();
+        } catch (\Exception  $e) {
+            return view('praktikazeitraeume.show', compact('praktikazeitraeume'))->withErrors($e->getMessage());
+        }
         return $this->index();
     }
 

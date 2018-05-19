@@ -99,7 +99,11 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function destroy(ansprechpartnerliste $ansprechpartnerliste)
     {
-        $ansprechpartnerliste->delete();
+        try {
+            $ansprechpartnerliste->delete();
+        } catch (\Exception  $e) {
+            return view('ansprechpartner.show', $ansprechpartnerliste->ansprechpartner)->withErrors($e->getMessage());
+        }
         return url();
     }
 }

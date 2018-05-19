@@ -41,7 +41,11 @@ class AnsprechpartnerController extends Controller
         $ansprechpartner->Nachname = request('name');
         $ansprechpartner->Telefon = request('telefon');
         $ansprechpartner->Email = request('email');
-        $ansprechpartner->save();
+        try {
+            $ansprechpartner->save();
+        } catch (\Exception $e) {
+            return view('ansprechpartner.create')->withErrors($e->getMessage());
+        }
         return redirect(route('ansprechpartner.show', $ansprechpartner));
     }
 
@@ -89,11 +93,11 @@ class AnsprechpartnerController extends Controller
         ));
         try {
             $ansprechpartner->save();
-        } catch (\Exception  $e) {
+        } catch (\Exception $e) {
             return view('ansprechpartner.edit', $ansprechpartner)->withErrors($e->getMessage());
         }
 
-        return redirect(route('ansprechpartner.show', $ansprechpartner));
+        return redirect(route('ansprechpartner.show', compact('ansprechpartner')));
     }
 
     /**
@@ -107,7 +111,7 @@ class AnsprechpartnerController extends Controller
         try {
             $ansprechpartner->delete();
         } catch (\Exception  $e) {
-            return view('ansprechpartner.show', $ansprechpartner)->withErrors($e->getMessage());
+            return view('ansprechpartner.show', compact('ansprechpartner'))->withErrors($e->getMessage());
         }
 
         return $this->index();

@@ -9,8 +9,7 @@ class BerufszielController extends Controller
 {
     public static function asArray()
     {
-        $zielliste = berufsziel::all();
-        return $zielliste;
+        return berufsziel::all();
     }
 
     /**
@@ -34,7 +33,11 @@ class BerufszielController extends Controller
         $request->validate(['bezeichnung' => 'required']);
         $berufsziel = new berufsziel;
         $berufsziel->Berufszielbezeichnung = request('bezeichnung');
-        $berufsziel->save();
+        try {
+            $berufsziel->save();
+        } catch (\Exception $e) {
+            return view('berufsziel.create')->withErrors($e->getMessage());
+        }
         return redirect(route('berufsziel.show', $berufsziel));
     }
 
@@ -72,7 +75,12 @@ class BerufszielController extends Controller
         $request->validate(['bezeichnung' => 'required']);
 
         $berufsziel->update(array('Berufszielbezeichnung' => request('bezeichnung')));
-        $berufsziel->save();
+        try {
+            $berufsziel->save();
+        } catch (\Exception  $e) {
+            return view('berufsziel.edit', $berufsziel)->withErrors($e->getMessage());
+        }
+
         return redirect(route('berufsziel.show', $berufsziel));
     }
 
@@ -84,7 +92,12 @@ class BerufszielController extends Controller
      */
     public function destroy(berufsziel $berufsziel)
     {
-        $berufsziel->delete();
+        try {
+            $berufsziel->delete();
+        } catch (\Exception  $e) {
+            return view('berufsziel.show', compact('berufsziel'))->withErrors($e->getMessage());
+        }
+
         return $this->index();
     }
 

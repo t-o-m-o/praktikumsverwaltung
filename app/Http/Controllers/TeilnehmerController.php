@@ -9,8 +9,7 @@ class TeilnehmerController extends Controller
 {
     public static function asArray()
     {
-        $teilnehmerl = teilnehmer::all();
-        return $teilnehmerl;
+        return teilnehmer::all();
     }
 
     /**
@@ -43,7 +42,11 @@ class TeilnehmerController extends Controller
         $teilnehmer->Semester_ID = request('semester');
         $teilnehmer->Vorname = request('vorname');
         $teilnehmer->Nachname = request('nachname');
-        $teilnehmer->save();
+        try {
+            $teilnehmer->save();
+        } catch (\Exception $e) {
+            return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+        }
         return view('teilnehmer.show', compact('teilnehmer'));
     }
 
@@ -90,7 +93,11 @@ class TeilnehmerController extends Controller
             'Berufsziel_ID' => request('berufsziel'),
             'Vorname' => request('vorname'),
             'Nachname' => request('nachname'))) ;
-        $teilnehmer->save();
+        try {
+            $teilnehmer->save();
+        } catch (\Exception $e) {
+            return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+        }
         return redirect(route('teilnehmer.show', $teilnehmer));
     }
 
@@ -102,7 +109,11 @@ class TeilnehmerController extends Controller
      */
     public function destroy(teilnehmer $teilnehmer)
     {
-        $teilnehmer->delete();
+        try {
+            $teilnehmer->delete();
+        } catch (\Exception  $e) {
+            return view('teilnehmer.show', compact('teilnehmer'))->withErrors($e->getMessage());
+        }
         return $this->index();
     }
 

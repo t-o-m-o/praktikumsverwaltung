@@ -23,15 +23,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="status">Name</label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control" name="name" id="name"
-                           value="{{old('name')}}">
-                </div>
-            </div>
-
-            <div class="mb-3">
                 <label for="telefon">Telefon</label>
 
                 <div class="input-group">
