@@ -24,8 +24,7 @@
             </tr>
             @foreach($praktika as $praktikum)
                 <tr>
-                    <td><a href="{{route('praktika.show',$praktikum)}}"> {{$praktikum->Praktikum_ID}}</a>
-                    </td>
+                    <td><a href="{{route('praktika.show',$praktikum)}}"> {{$praktikum->Praktikum_ID}}</a></td>
                     <?php $semester = $praktikum->teilnehmer->semester  ?>
                     <td><a href="{{route('semester.show',$semester)}}">{{ $semester['Semesterbezeichnung']}}</a></td>
                     <td>
@@ -33,14 +32,14 @@
                     </td>
                     <td>
                         <a href="{{route('teilnehmer.show',$praktikum->teilnehmer)}}"> {{$praktikum->teilnehmer->Nachname}}</a>
+                    </td>
                     <td><a href="{{route('firmen.show',$praktikum->firmen)}}">{{ $praktikum->firmen->Firmenname}}</a>
                     </td>
                     <td><a href="{{route('praktika.show',$praktikum)}}">{{ $praktikum['Status'] }}</a></td>
                     <td>{{ $praktikum->praktikazeitraeume['Start'] }}</td>
                     <td>{{ $praktikum->praktikazeitraeume['Ende'] }}</td>
                     <?php $ansprechpartner = $praktikum->firmen->ansprechpartner->first()?>
-                    <td>
-                        <a href="ansprechpartner/{{$ansprechpartner->Ansprechpartner_ID}}">{{ $ansprechpartner->Nachname}}</a>
+                    <td><a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
                     </td>
                 </tr>
             @endforeach

@@ -31,7 +31,18 @@ class AnsprechpartnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'vorname' => 'required'
+        ]);
+
+        $ansprechpartner = new ansprechpartner;
+        $ansprechpartner->Vorname = request('vorname');
+        $ansprechpartner->Nachname = request('name');
+        $ansprechpartner->Telefon = request('telefon');
+        $ansprechpartner->Email = request('email');
+        $ansprechpartner->save();
+        return redirect(route('ansprechpartner.show', $ansprechpartner));
     }
 
     /**
@@ -65,7 +76,19 @@ class AnsprechpartnerController extends Controller
      */
     public function update(Request $request, ansprechpartner $ansprechpartner)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'vorname' => 'required'
+        ]);
+
+        $ansprechpartner->update(array(
+            'Vorname' => request('vorname'),
+            'Nachname' => request('name'),
+            'Telefon' => request('telefon'),
+            'Email' => request('email')
+        ));
+        $ansprechpartner->save();
+        return redirect(route('ansprechpartner.show', $ansprechpartner));
     }
 
     /**

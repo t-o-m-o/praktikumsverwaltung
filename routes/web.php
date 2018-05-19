@@ -26,6 +26,7 @@ Route::get('/register', function () {
 Route::resource('ansprechpartner','AnsprechpartnerController');
 Route::resource('firmen', 'FirmenController', ['parameters' => ['firmen' => 'firmen']]);
 Route::resource('praktika','PraktikaController');
+Route::resource('praktikazeitraeume', 'PraktikazeitraeumeController');
 Route::resource('semester','SemesterController');
 Route::resource('teilnehmer','TeilnehmerController');
 Route::resource('berufsziel', 'BerufszielController');

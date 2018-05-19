@@ -38,7 +38,7 @@ class Praktikacontroller extends Controller
             'status' => 'required'
         ]);
 
-        $praktikum = new Praktika;
+        $praktikum = new praktika;
         $praktikum->Teilnehmer_ID = request('teilnehmer');
         $praktikum->Firmen_ID = request('firma');
         $praktikum->Praktikumszeit_ID = request('zeit');

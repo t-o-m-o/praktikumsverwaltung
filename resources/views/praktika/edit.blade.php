@@ -23,7 +23,7 @@
                 <label for="firma">Firma</label>
 
                 <div class="input-group">
-                    <select name="firma" class="form-control">
+                    <select name="firma" id="firma" class="form-control">
                         <option value="">"Bitte Firma auswählen"</option>
                         @foreach ($firmen as $firma)
                             <option
@@ -42,7 +42,7 @@
                 <label for="teilnehmer">Teilnehmer</label>
 
                 <div class="input-group">
-                    <select name="teilnehmer" class="form-control">
+                    <select name="teilnehmer" id="teilnehmer" class="form-control">
                         <option value="">"Bitte Teilnehmer auswählen"</option>
                         @foreach ($teilnehmerliste as $teilnehmer)
                             <option
@@ -62,7 +62,7 @@
                 <label for="zeit">Zeit</label>
 
                 <div class="input-group">
-                    <select name="zeit" class="form-control">
+                    <select name="zeit" id="zeit" class="form-control">
                         <option value="">"Bitte Zeitraum auswählen"</option>
                         @foreach ($zeitraueme as $zeitraum)
                             <option
