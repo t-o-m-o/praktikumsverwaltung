@@ -93,9 +93,11 @@ class Praktikacontroller extends Controller
         ]);
 
         $praktika->update(array(
+            'Teilnehmer_ID' => request('teilnehmer'),
             'Firmen_ID' => request('firma'),
-            'Praktikumszeit_ID' => request('firma'),
-            'Status' => request('status')));
+            'Praktikumszeit_ID' => request('zeit'),
+            'Status' => request('status')
+        ));
         try {
             $praktika->save();
         } catch (\Exception $e) {
