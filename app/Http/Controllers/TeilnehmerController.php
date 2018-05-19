@@ -14,7 +14,9 @@ class TeilnehmerController extends Controller
      */
     public function index()
     {
-        //
+        $teilnehmer = teilnehmer::paginate(25);
+        //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
+        return view('teilnehmer.teilnehmerliste', compact('teilnehmer'));
     }
 
     /**
@@ -59,7 +61,7 @@ class TeilnehmerController extends Controller
      */
     public function show(teilnehmer $teilnehmer)
     {
-        //
+        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
@@ -70,7 +72,7 @@ class TeilnehmerController extends Controller
      */
     public function edit(teilnehmer $teilnehmer)
     {
-        //
+        return view('teilnehmer.edit', compact('teilnehmer'));
     }
 
     /**
@@ -82,7 +84,20 @@ class TeilnehmerController extends Controller
      */
     public function update(Request $request, teilnehmer $teilnehmer)
     {
-        //
+        $request->validate([
+            'vorname' => 'required',
+            'nachname' => 'required',
+            'berufsziel' => 'exists:berufsziel,Berufsziel_ID',
+            'semester' => 'exists:semester,Semester_ID'
+        ]);
+
+        $teilnehmer->update(array(
+            'Semester_ID' => request('semester'),
+            'Berufsziel_ID' => request('berufsziel'),
+            'Vorname' => request('vorname'),
+            'Nachname' => request('nachname'))) ;
+        $teilnehmer->save();
+        return redirect(route('teilnehmer.show', $teilnehmer));
     }
 
     /**
@@ -93,7 +108,8 @@ class TeilnehmerController extends Controller
      */
     public function destroy(teilnehmer $teilnehmer)
     {
-        //
+        $teilnehmer->delete();
+        return $this->index();
     }
 
     public static function asArray()
