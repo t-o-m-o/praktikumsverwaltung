@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teilnehmer extends Model
 {
+    public $timestamps = false;
     protected $table = 'teilnehmer';
     protected $primaryKey = 'Teilnehmer_ID';
-    public $timestamps = false;
-
     protected $fillable = [
         'Teilnehmer_ID', 'Semester_ID', 'Berufsziel_ID', 'Vorname', 'Nachname'
     ];
@@ -27,6 +26,6 @@ class Teilnehmer extends Model
 
     public function berufsziel()
     {
-        return $this->hasOne(berufsziel::class,'Berufsziel_ID','Berufsziel_ID');
+        return $this->belongsTo(berufsziel::class, 'Berufsziel_ID', 'Berufsziel_ID');
     }
 }

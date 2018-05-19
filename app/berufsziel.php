@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class berufsziel extends Model
 {
+    public $timestamps = false;
     protected $table = 'berufsziel';
     protected $primaryKey = 'Berufsziel_ID';
-    public $timestamps = false;
-
     protected $fillable = [
         'Berufszielbezeichnung'
     ];
 
     public function teilnehmer()
     {
-        return $this->belongsTo(teilnehmer::class,'Berufsziel_ID','Berufsziel_ID');
+        return $this->hasMany(teilnehmer::class, 'Berufsziel_ID', 'Berufsziel_ID');
     }
 
     public function ansprechpartnerliste()

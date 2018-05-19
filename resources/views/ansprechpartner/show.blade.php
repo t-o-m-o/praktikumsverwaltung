@@ -3,7 +3,6 @@
     <div class="container">
         <div class="container">
             <h2>{{$ansprechpartner->Vorname}}, {{ $ansprechpartner->Nachname}}</h2>
-
             <div>{{$ansprechpartner->Email}}</div>
             <div>{{$ansprechpartner->Telefon}}</div>
         </div>
@@ -25,7 +24,6 @@
         <hr class="mb-4">
         <?php $firmen = $ansprechpartner->firmen ?>
         <h3>Firmen</h3>
-
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tr>

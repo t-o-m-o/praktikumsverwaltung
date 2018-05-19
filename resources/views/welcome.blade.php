@@ -90,8 +90,8 @@
 
                 <div class="links">
                     <a href="{{ route('semester.index') }}">Semester</a>
-                    <a href="{{ route('berufsziel.index') }}">todo: Berufsziel</a>
-                    <a href="{{ route('praktikazeitraeume.index') }}">todo: Praktikazeiträume</a>
+                    <a href="{{ route('berufsziel.index') }}">Berufsziel</a>
+                    <a href="{{ route('praktikazeitraeume.index') }}">Praktikazeiträume</a>
                 </div>
             </div>
         </div>

@@ -7,14 +7,10 @@ use Illuminate\Http\Request;
 
 class Praktikazeitraeumecontroller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public static function asArray()
     {
-        //
+        $zeitraueme = praktikazeitraeume::all();
+        return $zeitraueme;
     }
 
     /**
@@ -24,7 +20,7 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('praktikazeitraeume.create');
     }
 
     /**
@@ -46,7 +42,7 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function show(praktikazeitraeume $praktikazeitraeume)
     {
-        //
+        return view('praktikazeitraeume.show', compact('praktikazeitraeume'));
     }
 
     /**
@@ -57,7 +53,7 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function edit(praktikazeitraeume $praktikazeitraeume)
     {
-        //
+        return view('praktikazeitraeume.edit', compact('praktikazeitraeume'));
     }
 
     /**
@@ -80,12 +76,18 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function destroy(praktikazeitraeume $praktikazeitraeume)
     {
-        //
+        $praktikazeitraeume->delete();
+        return $this->index();
     }
 
-    public static function asArray()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $zeitraueme = praktikazeitraeume::all();
-        return $zeitraueme;
+        $praktikazeitraeume = praktikazeitraeume::paginate(25);
+        return view('praktikazeitraeume.index', compact('praktikazeitraeume'));
     }
 }

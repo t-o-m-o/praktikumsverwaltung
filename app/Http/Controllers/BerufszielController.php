@@ -7,14 +7,10 @@ use Illuminate\Http\Request;
 
 class BerufszielController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public static function asArray()
     {
-        //
+        $zielliste = berufsziel::all();
+        return $zielliste;
     }
 
     /**
@@ -24,7 +20,7 @@ class BerufszielController extends Controller
      */
     public function create()
     {
-        //
+        return view('berufsziel.create');
     }
 
     /**
@@ -35,7 +31,11 @@ class BerufszielController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['bezeichnung' => 'required']);
+        $berufsziel = new berufsziel;
+        $berufsziel->Berufszielbezeichnung = request('bezeichnung');
+        $berufsziel->save();
+        return redirect(route('berufsziel.show', $berufsziel));
     }
 
     /**
@@ -46,7 +46,7 @@ class BerufszielController extends Controller
      */
     public function show(berufsziel $berufsziel)
     {
-        //
+        return view('berufsziel.show', compact('berufsziel'));
     }
 
     /**
@@ -57,7 +57,7 @@ class BerufszielController extends Controller
      */
     public function edit(berufsziel $berufsziel)
     {
-        //
+        return view('berufsziel.edit', compact('berufsziel'));
     }
 
     /**
@@ -69,7 +69,11 @@ class BerufszielController extends Controller
      */
     public function update(Request $request, berufsziel $berufsziel)
     {
-        //
+        $request->validate(['bezeichnung' => 'required']);
+
+        $berufsziel->update(array('Berufszielbezeichnung' => request('bezeichnung')));
+        $berufsziel->save();
+        return redirect(route('berufsziel.show', $berufsziel));
     }
 
     /**
@@ -80,12 +84,18 @@ class BerufszielController extends Controller
      */
     public function destroy(berufsziel $berufsziel)
     {
-        //
+        $berufsziel->delete();
+        return $this->index();
     }
 
-    public static function asArray()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $zielliste = berufsziel::all();
-        return $zielliste;
+        $berufsziel = berufsziel::paginate(25);
+        return view('berufsziel.index', compact('berufsziel'));
     }
 }
