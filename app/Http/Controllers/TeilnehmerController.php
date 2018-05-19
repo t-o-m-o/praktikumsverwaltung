@@ -7,16 +7,10 @@ use Illuminate\Http\Request;
 
 class TeilnehmerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public static function asArray()
     {
-        $teilnehmer = teilnehmer::paginate(25);
-        //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
-        return view('teilnehmer.teilnehmerliste', compact('teilnehmer'));
+        $teilnehmerl = teilnehmer::all();
+        return $teilnehmerl;
     }
 
     /**
@@ -45,12 +39,12 @@ class TeilnehmerController extends Controller
         ]);
 
         $teilnehmer = new teilnehmer();
-        $teilnehmer->Berufsziel_ID = request('ziel');
+        $teilnehmer->Berufsziel_ID = request('berufsziel');
         $teilnehmer->Semester_ID = request('semester');
         $teilnehmer->Vorname = request('vorname');
         $teilnehmer->Nachname = request('nachname');
         $teilnehmer->save();
-        redirect('/public/praktika/praktikaliste/');
+        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
@@ -112,9 +106,15 @@ class TeilnehmerController extends Controller
         return $this->index();
     }
 
-    public static function asArray()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $teilnehmerl = teilnehmer::all();
-        return $teilnehmerl;
+        $teilnehmer = teilnehmer::paginate(25);
+        //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
+        return view('teilnehmer.teilnehmerliste', compact('teilnehmer'));
     }
 }

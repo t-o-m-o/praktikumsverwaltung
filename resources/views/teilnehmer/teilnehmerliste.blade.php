@@ -25,12 +25,18 @@
                         <td>
                             <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Teilnehmer_ID}}</a>
                         </td>
-                        <td>{{ $teilnehmerdatensatz->Nachname }}</td>
-                        <td>{{ $teilnehmerdatensatz->Vorname }}</td>
-                        <td>{{ $teilnehmerdatensatz->berufsziel['Berufszielbezeichnung']}} </td>
-                        <?php $semester = $teilnehmerdatensatz->semester ?>
-                        <td><a href="semester/{{$semester['Semester_ID']}}">{{ $semester['Semesterbezeichnung']}}</a>
+                        <td>
+                            <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Nachname}}</a>
                         </td>
+                        <td>
+                            <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Vorname}}</a>
+                        </td>
+                        <td>
+                            <a href="{{route('berufsziel.show',$teilnehmerdatensatz->berufsziel)}}"> {{$teilnehmerdatensatz->berufsziel['Berufszielbezeichnung']}}</a>
+                        </td>
+                        <?php $semester = $teilnehmerdatensatz->semester ?>
+                        <td><a href="{{route('semester.show',$semester)}}">{{ $semester->Semesterbezeichnung}}</a></td>
+
                     </tr>
                 @endforeach
             </table>

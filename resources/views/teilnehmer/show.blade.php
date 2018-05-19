@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-
+        <h3>{{$teilnehmer->Vorname." ".$teilnehmer->Nachname.", ".$teilnehmer->semester->Semesterbezeichnung}}</h3>
         <div class="row">
             <div class=".col-sm-4">
                 <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="table-responsive">
-            <h3>{{$teilnehmer->Vorname." ".$teilnehmer->Nachname.", ".$teilnehmer->semester->Semesterbezeichnung}}</h3>
+
         <table class="table table-hover table-striped">
             <tr>
                 <th>ID</th>
@@ -27,18 +27,27 @@
                 <th>Status</th>
                 <th>Start</th>
                 <th>Ende</th>
+                <th>Ansprechpartner</th>
             </tr>
             <?php $praktika = $teilnehmer->praktika; ?>
+            <h3>Praktika:</h3>
             @foreach($praktika as $praktikum)
-            <tr>
-                <td>{{ $praktikum->Semester_ID}}</td>
-                <td>{{ $praktikum->teilnehmer->semester->Semesterbezeichnung}}</td>
-                <td>{{ $praktikum->teilnehmer->berufsziel->Berufszielbezeichnung }}</td>
-                <td>{{ $praktikum->firmen->Firmenname}}</td>
-                <td>{{ $praktikum->Status}}</td>
-                <td>{{ $praktikum->praktikazeitraeume->Start}}</td>
-                <td>{{ $praktikum->praktikazeitraeume->Ende}}</td>
-            </tr>
+                <tr>
+                    <td><a href="{{route('praktika.show',$praktikum)}}"> {{$praktikum->Praktikum_ID}}</a></td>
+                    <?php $semester = $praktikum->teilnehmer->semester  ?>
+                    <td><a href="{{route('semester.show',$semester)}}">{{ $semester['Semesterbezeichnung']}}</a></td>
+                    <td>
+                        <a href="{{route('berufsziel.show',$praktikum->teilnehmer->berufsziel)}}">{{ $praktikum->teilnehmer->berufsziel['Berufszielbezeichnung']}}</a>
+                    </td>
+                    <td><a href="{{route('firmen.show',$praktikum->firmen)}}">{{ $praktikum->firmen->Firmenname}}</a>
+                    </td>
+                    <td><a href="{{route('praktika.show',$praktikum)}}">{{ $praktikum['Status'] }}</a></td>
+                    <td>{{ $praktikum->praktikazeitraeume['Start'] }}</td>
+                    <td>{{ $praktikum->praktikazeitraeume['Ende'] }}</td>
+                    <?php $ansprechpartner = $praktikum->firmen->ansprechpartner->first()?>
+                    <td><a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
+                    </td>
+                </tr>
             @endforeach
         </table>
             {{--ToDo Praktikaliste--}}
