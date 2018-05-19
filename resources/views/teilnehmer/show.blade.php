@@ -7,34 +7,42 @@
                 <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
             </div>
             <div class=".col-sm-4">
-                <a href="{{route('praktika.edit',$praktika)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
+                <a href="{{route('teilnehmer.edit',$teilnehmer)}}" class="btn btn-warning"> Teilnehmer bearbeiten</a>
             </div>
             <div class=".col-sm-4">
-                {{Form::open(array('route' => array('praktika.destroy',$praktika),'method' => 'DELETE' ) )}}
-                {{ Form::submit('Praktikum löschen', array('class' => 'btn btn-danger')) }}
+                {{Form::open(array('route' => array('teilnehmer.destroy',$teilnehmer),'method' => 'DELETE' ) )}}
+                {{ Form::submit('Teilnehmer löschen', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}
             </div>
         </div>
 
         <div class="table-responsive">
+            <h3>{{$teilnehmer->Vorname." ".$teilnehmer->Nachname.", ".$teilnehmer->semester->Semesterbezeichnung}}</h3>
         <table class="table table-hover table-striped">
             <tr>
-                <td>ID</td>
-                <td>Firmenname</td>
-                <td>Status</td>
-                <td>Teilnehmer</td>
-                <td>Start</td>
-                <td>Ende</td>
+                <th>ID</th>
+                <th>Semester</th>
+                <th>Berufsziel</th>
+                <th>Firmenname</th>
+                <th>Status</th>
+                <th>Start</th>
+                <th>Ende</th>
             </tr>
+            <?php $praktika = $teilnehmer->praktika; ?>
+            @foreach($praktika as $praktikum)
             <tr>
-                <td>{{ $praktika->Praktikum_ID}}</td>
-                <td>{{ $praktika->firmen->Firmenname}}</td>
-                <td>{{ $praktika->Status}}</td>
-                <td>{{ $praktika->teilnehmer->Nachname }}</td>
-                <td>{{ $praktika->praktikazeitraeume->Start}}</td>
-                <td>{{ $praktika->praktikazeitraeume->Ende}}</td>
+                <td>{{ $praktikum->Semester_ID}}</td>
+                <td>{{ $praktikum->teilnehmer->semester->Semesterbezeichnung}}</td>
+                <td>{{ $praktikum->teilnehmer->berufsziel->Berufszielbezeichnung }}</td>
+                <td>{{ $praktikum->firmen->Firmenname}}</td>
+                <td>{{ $praktikum->Status}}</td>
+                <td>{{ $praktikum->praktikazeitraeume->Start}}</td>
+                <td>{{ $praktikum->praktikazeitraeume->Ende}}</td>
             </tr>
+            @endforeach
         </table>
+            {{--ToDo Praktikaliste--}}
+
         </div>
     </div>
 @endsection
