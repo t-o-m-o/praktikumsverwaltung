@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
 
-        <div class="form-group">
+
+    <div class="form-group">
             {{Form::open(array('route' => array('ansprechpartner.store') ) )}}
             <div class="mb-3">
                 <label for="status">Name</label>
@@ -55,6 +55,4 @@
 
             {{ Form::close() }}
         </div>
-
-    </div>
 @endsection

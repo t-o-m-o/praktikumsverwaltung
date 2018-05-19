@@ -68,17 +68,19 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
-            @if(count($errors))
-                <hr class="mb-4">
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <div class="container">
+                @yield('content')
+                @if(count($errors))
+                    <hr class="mb-4">
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
         </main>
     </div>
 </body>

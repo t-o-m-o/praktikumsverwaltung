@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
 
-        <div class="form-group">
-            {{Form::open(array('route' => array('semester.store') ) )}}
-            <div class="mb-3">
-
+    <div class="form-group">
+        {{Form::open(array('route' => array('semester.store') ) )}}
+        <div class="mb-3">
 
             <div class="mb-3">
                 <label for="bezeichnung">Bezeichnung</label>

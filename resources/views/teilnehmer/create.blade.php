@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
         <?php
 
         use App\Http\Controllers\BerufszielController;
@@ -19,7 +18,7 @@
 
                 <div class="input-group">
                     <input type="text" class="form-control" name="vorname" id="vorname" value="{{old('vorname')}}">
-                </div>
+            </div>
             </div>
 
             <div class="mb-3">
@@ -27,11 +26,10 @@
 
                 <div class="input-group">
                     <input type="text" class="form-control" name="nachname" id="nachname" value="{{old('nachname')}}">
-                </div>
+            </div>
             </div>
 
             <div class="mb-3">
-
 
                 <label for="berufsziel">Berufsziel</label>
 
@@ -48,7 +46,7 @@
                             </option>
                         @endforeach
                     </select>
-                </div>
+            </div>
 
             </div>
             <div class="mb-3">
@@ -69,7 +67,7 @@
                             </option>
                         @endforeach
                     </select>
-                </div>
+            </div>
             </div>
 
             <hr class="mb-4">
@@ -77,6 +75,5 @@
             <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Teilnehmer hinzufügen</button>
 
             {{ Form::close() }}
-        </div>
     </div>
 @endsection
