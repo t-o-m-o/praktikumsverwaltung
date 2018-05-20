@@ -86,6 +86,7 @@
             <a href="{{ route('praktika.index') }}">Praktika</a>
             <a href="{{ route('firmen.index') }}">Firmen</a>
             <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
+            <a href="{{ route('kontaktliste.index') }}">Kontaktaufnahme</a>
             <a href="{{ route('ansprechpartner.index') }}">Ansprechpartner</a>
             <a href="{{ route('ansprechpartnerliste.create') }}">Ansprechpartner verbinden</a>
         </div>

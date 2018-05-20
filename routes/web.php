@@ -32,7 +32,7 @@ Route::resource('praktikazeitraeume', 'PraktikazeitraeumeController');
 Route::resource('semester','SemesterController');
 Route::resource('teilnehmer','TeilnehmerController');
 Route::resource('berufsziel', 'BerufszielController');
-Route::resource('kontaktliste', 'KontaktlisteController');
+Route::resource('kontaktliste', 'KontaklisteController');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'WelcomeController@index')->name('welcome');

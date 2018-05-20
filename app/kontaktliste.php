@@ -14,6 +14,6 @@ class kontaktliste extends Model
 
     public function praktika()
     {
-        return $this->hasMany(praktika::class, 'Praktikum_ID', 'Praktikum_ID');
+        return $this->hasOne(praktika::class, 'Praktikum_ID', 'Praktikum_ID');
     }
 }
