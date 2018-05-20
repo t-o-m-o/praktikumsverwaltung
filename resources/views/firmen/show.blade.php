@@ -1,30 +1,28 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <h2>{{ $firmen->Firmenname}}</h2>
+    <div class="container-fluid">
+        <h3 class="text-center">{{ $firmen->Firmenname}}</h3>
 
-        <div class="align-content-stretch">{{$firmen->Firmenbezeichnung}}</div>
-        <div>{{$firmen->Firmenwebseite}}</div>
-        <div>{{$firmen->Strasse}}</div>
-        <div>{{$firmen->PLZ}}</div>
-        <div>{{$firmen->Ort}}</div>
-        <div>{{$firmen->Telefon}}</div>
-        <div>{{$firmen->Email}}</div>
-    </div>
-    <div class="row">
-        <div class=".col-sm-4">
-            <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
-        </div>
-        <div class=".col-sm-4">
-            <a href="{{route('firmen.edit',$firmen)}}" class="btn btn-warning"> Firma bearbeiten</a>
-        </div>
-        <div class=".col-sm-4">
-            {{ Form::open(array('route' => array('firmen.destroy',$firmen),'method' => 'DELETE' ) )}}
-            {{ Form::submit('Firma löschen', array('class' => 'btn btn-danger')) }}
-            {{ Form::close() }}
-        </div>
-    </div>
+        <div class="text-center">{{$firmen->Firmenbezeichnung}}</div>
+        <div class="text-center">{{$firmen->Firmenwebseite}}</div>
+        <div class="text-center">{{$firmen->Strasse}}</div>
+        <div class="text-center">{{$firmen->PLZ}}</div>
+        <div class="text-center">{{$firmen->Ort}}</div>
+        <div class="text-center">{{$firmen->Telefon}}</div>
+        <div class="text-center">{{$firmen->Email}}</div>
 
+        <div class="btn-group">
+            <div class=".col-md-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class=".col-sm-4 ml-1">
+                <a href="{{route('firmen.edit',$firmen)}}" class="btn btn-warning"> Firma bearbeiten</a>
+            </div>
+            <div class=".col-sm-4 ml-1">
+                {{ Form::open(array('route' => array('firmen.destroy',$firmen),'method' => 'DELETE' ) )}}
+                {{ Form::submit('Firma löschen', array('class' => 'btn btn-danger')) }}
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
     <hr class="mb-4">
     <?php $ansprechpartnerliste = $firmen->ansprechpartnerliste ?>
     <h3>Ansprechpartner</h3>

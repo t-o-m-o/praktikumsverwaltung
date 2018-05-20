@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container-fluid">
+        <h3 class="text-center">Ansprechpartner hinzufügen</h3>
 
-
+        <div class="btn-group">
+            <div class=".col-md-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class=".col-md-4 ml-1"><a href="{{route('ansprechpartner.index')}}" class="btn btn-info">
+                    Ansprechpartnerliste</a></div>
+            <div class=".col-md-4 ml-1"><a href="{{route('ansprechpartnerliste.create')}}" class="btn btn-info">
+                    Ansprechpartner
+                    verbinden</a></div>
+        </div>
+    </div>
+    <hr class="mb-4">
     <div class="form-group">
             {{Form::open(array('route' => array('ansprechpartner.store') ) )}}
             <div class="mb-3">

@@ -1,20 +1,30 @@
 @extends('layouts.app')
 @section('content')
+    <div class="container-fluid">
+        <h3 class="text-center">Praktikum </h3>
 
-    <div class="row">
-        <div class=".col-sm-4">
-            <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
-        </div>
-        <div class=".col-sm-4">
-            <a href="{{route('praktika.edit',$praktika)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
-        </div>
-        <div class=".col-sm-4">
-            {{Form::open(array('route' => array('praktika.destroy',$praktika),'method' => 'DELETE' ) )}}
-            {{ Form::submit('Praktikum löschen', array('class' => 'btn btn-danger')) }}
-            {{ Form::close() }}
+        <div class="text-center">{{ $praktika->teilnehmer->Vorname }}, {{ $praktika->teilnehmer->Nachname }}</div>
+
+        <div class="btn-group">
+            <div class=".col-md-4 ml-1">
+                <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
+            </div>
+            <div class=".col-md-4 ml-1">
+                <a href="{{route('praktika.index')}}" class="btn btn-info">
+                    Ansprechpartnerliste</a>
+            </div>
+
+            <div class=".col-sm-4 ml-1">
+                <a href="{{route('praktika.edit',$praktika)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
+            </div>
+            <div class=".col-sm-4 ml-1">
+                {{Form::open(array('route' => array('praktika.destroy',$praktika),'method' => 'DELETE' ) )}}
+                {{ Form::submit('Praktikum löschen', array('class' => 'btn btn-danger')) }}
+                {{ Form::close() }}
+            </div>
         </div>
     </div>
-
+    <hr class="mb-4">
     <div class="table-responsive">
         <table class="table table-hover table-striped">
             <tr>
@@ -27,11 +37,23 @@
             </tr>
             <tr>
                 <td>{{ $praktika->Praktikum_ID}}</td>
-                <td>{{ $praktika->firmen->Firmenname}}</td>
+                <td>
+                    <a href="{{route('firmen.show',$praktika->firmen)}}">
+                        {{ $praktika->firmen->Firmenname}}
+                    </a>
+                </td>
                 <td>{{ $praktika->Status}}</td>
                 <td>{{ $praktika->teilnehmer->Nachname }}</td>
-                <td>{{ $praktika->praktikazeitraeume->Start}}</td>
-                <td>{{ $praktika->praktikazeitraeume->Ende}}</td>
+                <td>
+                    <a href="{{route('praktikazeitraeume.show',$praktika->praktikazeitraeume)}}">
+                        {{ $praktika->praktikazeitraeume->Start}}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{route('praktikazeitraeume.show',$praktika->praktikazeitraeume)}}">
+                        {{ $praktika->praktikazeitraeume->Ende}}
+                    </a>
+                </td>
             </tr>
         </table>
     </div>

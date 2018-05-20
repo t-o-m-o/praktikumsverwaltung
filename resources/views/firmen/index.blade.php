@@ -1,13 +1,18 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
-        <div class=".col-sm-4"><a href="{{url()->previous()}}" class="btn btn-info"> zurück</a></div>
-        <div class=".col-sm-4"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
+    <div class="container-fluid">
+        <h3 class="text-center">Firmen</h3>
+
+        <div class="btn-group">
+            <div class=".col-sm-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class=".col-sm-4 ml-1"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
+            </div>
         </div>
     </div>
-    <ul class="pager">{{$firmen->links() }}</ul>
+
     <hr class="mb-4">
     <div class="table-responsive">
+        <ul class="pager">{{$firmen->links() }}</ul>
         <table class="table table-hover table-striped">
             <tr>
                 <th>ID</th>

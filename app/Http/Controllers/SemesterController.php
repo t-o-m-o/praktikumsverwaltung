@@ -114,6 +114,6 @@ class Semestercontroller extends Controller
     public function index()
     {
         $semester = semester::paginate(25);
-        return view('semester.semesterliste', compact('semester'));
+        return view('semester.index', compact('semester'));
     }
 }

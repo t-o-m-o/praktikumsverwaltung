@@ -1,22 +1,23 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <h2>{{$berufsziel->Berufszielbezeichnung}}</h2>
-    </div>
-    <div class="row">
-        <div class=".col-sm-4">
-            <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
-        </div>
-        <div class=".col-sm-4">
-            <a href="{{route('berufsziel.edit',$berufsziel)}}" class="btn btn-warning"> Berufsziel bearbeiten</a>
-        </div>
-        <div class=".col-sm-4">
-            {{ Form::open(array('route' => array('berufsziel.destroy',$berufsziel),'method' => 'DELETE' ) )}}
-            {{ Form::submit('Berufsziel löschen', array('class' => 'btn btn-danger')) }}
-            {{ Form::close() }}
-        </div>
-    </div>
+    <div class="container-fluid">
+        <h3 class="text-center">{{$berufsziel->Berufszielbezeichnung}}</h3>
 
+        <div class="btn-group">
+            <div class=".col-md-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class=".col-md-4 ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
+                    Ansprechpartnerliste</a></div>
+            <div class=".col-sm-4 ml-1">
+                <a href="{{route('berufsziel.edit',$berufsziel)}}" class="btn btn-warning ml-1"> Berufsziel
+                    bearbeiten</a>
+            </div>
+            <div class=".col-sm-4">
+                {{ Form::open(array('route' => array('berufsziel.destroy',$berufsziel),'method' => 'DELETE' ) )}}
+                {{ Form::submit('Berufsziel löschen', array('class' => 'btn btn-danger ml-1')) }}
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
     <hr class="mb-4">
     <?php $teilnehmer = $berufsziel->teilnehmer ?>
     <h3>Teilnehmer</h3>

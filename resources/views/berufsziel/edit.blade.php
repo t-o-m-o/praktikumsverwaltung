@@ -2,9 +2,16 @@
 @section('content')
 
 
-    <div class="row">
-        <div class=".col-sm-4"><a href="{{url()->previous()}}" class="btn btn-info"> zurück</a></div>
-    </div>
+    <div class="container-fluid">
+        <h3 class="text-center">Berufsziel bearbeiten</h3>
+
+        <div class="btn-group">
+            <div class=".col-md-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class=".col-md-4 ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
+                    Berufszielliste</a></div>
+            <div class=".col-md-4 ml-1"><a href="{{route('berufsziel.create')}}" class="btn btn-info"> Berufsziel
+                    hinzufügen</a></div>
+        </div>
     <hr class="mb-4">
     <div class="form-group">
         {{Form::open(array('route' => array('berufsziel.update',$berufsziel),'method' => 'PUT' ) )}}

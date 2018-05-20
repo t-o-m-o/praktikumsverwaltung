@@ -30,9 +30,7 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['start' => 'required'],
-            ['ende' => 'required']
-        );
+        $request->validate(['start' => 'date', 'ende' => 'date']);
         $praktikazeitraeume = new praktikazeitraeume;
         $praktikazeitraeume->Start = request('start');
         $praktikazeitraeume->Ende = request('ende');

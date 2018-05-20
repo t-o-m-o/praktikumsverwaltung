@@ -126,6 +126,6 @@ class TeilnehmerController extends Controller
     {
         $teilnehmer = teilnehmer::paginate(25);
         //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
-        return view('teilnehmer.teilnehmerliste', compact('teilnehmer'));
+        return view('teilnehmer.index', compact('teilnehmer'));
     }
 }
