@@ -79,11 +79,11 @@
                     <option value="">"Bitte Zeitraum auswählen"</option>
                     @foreach ($zeitraueme as $zeitraum)
                         <option
-                                @if ($zeitraum->Praktikumszeit_ID == $praktika->Praktikumszeit_ID))
+                                @if ($zeitraum->Praktikumszeit_ID == $praktika->Praktikumszeit_ID)
                                 selected
                                 @endif
-                                value="{{$zeitraum->Praktikumszeit_ID}}">{{$zeitraum->Start}}
-                            bis {{$zeitraum->Ende}}
+                                value="{{$zeitraum->Praktikumszeit_ID}}">
+                            {{$zeitraum->Start}} bis {{$zeitraum->Ende}}
                         </option>
                     @endforeach
                 </select>
