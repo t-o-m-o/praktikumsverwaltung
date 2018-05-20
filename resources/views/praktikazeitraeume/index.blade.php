@@ -5,8 +5,8 @@
         <h3 class="text-center">Ansprechpartner</h3>
 
         <div class="btn-group">
-            <div class=".col-sm-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
-            <div class=".col-sm-4 ml-1"><a href="{{route('praktikazeitraeume.create')}}" class="btn btn-info"> Zeitraum
+            <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class="ml-1"><a href="{{route('praktikazeitraeume.create')}}" class="btn btn-info"> Zeitraum
                     hinzufügen</a>
             </div>
         </div>

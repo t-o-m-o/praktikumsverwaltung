@@ -7,16 +7,16 @@
         <h3 class="text-center">{{$semester->Semesterbezeichnung}}</h3>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('semester.index')}}" class="btn btn-info"> Ansprechpartnerliste</a>
             </div>
-            <div class=".col-sm-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('semester.edit',$semester)}}" class="btn btn-warning"> Semester bearbeiten</a>
             </div>
-            <div class=".col-sm-4 ml-1">
+            <div class="ml-1">
                 {{Form::open(array('route' => array('semester.destroy',$semester),'method' => 'DELETE' ) )}}
                 {{ Form::submit('Semester löschen', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}

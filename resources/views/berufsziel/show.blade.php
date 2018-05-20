@@ -4,14 +4,14 @@
         <h3 class="text-center">{{$berufsziel->Berufszielbezeichnung}}</h3>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
-            <div class=".col-md-4 ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
+            <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class="ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
                     Ansprechpartnerliste</a></div>
-            <div class=".col-sm-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('berufsziel.edit',$berufsziel)}}" class="btn btn-warning ml-1"> Berufsziel
                     bearbeiten</a>
             </div>
-            <div class=".col-sm-4">
+            <div class="ml-1">
                 {{ Form::open(array('route' => array('berufsziel.destroy',$berufsziel),'method' => 'DELETE' ) )}}
                 {{ Form::submit('Berufsziel löschen', array('class' => 'btn btn-danger ml-1')) }}
                 {{ Form::close() }}

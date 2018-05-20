@@ -6,10 +6,10 @@
         <h3 class="text-center">Berufsziel bearbeiten</h3>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
-            <div class=".col-md-4 ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
+            <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class="ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
                     Berufszielliste</a></div>
-            <div class=".col-md-4 ml-1"><a href="{{route('berufsziel.create')}}" class="btn btn-info"> Berufsziel
+            <div class="ml-1"><a href="{{route('berufsziel.create')}}" class="btn btn-info"> Berufsziel
                     hinzufügen</a></div>
         </div>
     <hr class="mb-4">

@@ -16,14 +16,14 @@
         <h3 class="text-center">Praktikum bearbeiten</h3>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('praktika.index')}}" class="btn btn-info">
                     Praktikumsliste</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('praktika.create')}}" class="btn btn-info">
                     Praktikum hinzufügen</a>
             </div>

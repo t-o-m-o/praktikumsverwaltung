@@ -15,14 +15,14 @@
         <h3 class="text-center">Teilnehmer bearbeiten</h3>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('teilnehmer.index')}}" class="btn btn-info">
                     Teilnehmerliste</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('teilnehmer.create')}}" class="btn btn-info">
                     Teilnehmer hinzufügen</a>
             </div>

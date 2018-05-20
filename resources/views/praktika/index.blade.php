@@ -5,8 +5,8 @@
         <h3 class="text-center">Praktika</h3>
 
         <div class="btn-group">
-            <div class=".col-sm-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
-            <div class=".col-sm-4 ml-1"><a href="{{Route('praktika.create')}}" class="btn btn-info"> Praktikum
+            <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class="ml-1"><a href="{{Route('praktika.create')}}" class="btn btn-info"> Praktikum
                     hinzufügen</a>
             </div>
         </div>

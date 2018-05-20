@@ -4,8 +4,8 @@
         <h3 class="text-center">Firmen</h3>
 
         <div class="btn-group">
-            <div class=".col-sm-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
-            <div class=".col-sm-4 ml-1"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
+            <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class="ml-1"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
             </div>
         </div>
     </div>

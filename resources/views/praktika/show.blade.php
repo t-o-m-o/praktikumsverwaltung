@@ -6,18 +6,18 @@
         <div class="text-center">{{ $praktika->teilnehmer->Vorname }}, {{ $praktika->teilnehmer->Nachname }}</div>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('praktika.index')}}" class="btn btn-info">
-                    Ansprechpartnerliste</a>
+                    Praktikaliste</a>
             </div>
 
-            <div class=".col-sm-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('praktika.edit',$praktika)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
             </div>
-            <div class=".col-sm-4 ml-1">
+            <div class="ml-1">
                 {{Form::open(array('route' => array('praktika.destroy',$praktika),'method' => 'DELETE' ) )}}
                 {{ Form::submit('Praktikum löschen', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}
@@ -36,14 +36,18 @@
                 <td>Ende</td>
             </tr>
             <tr>
-                <td>{{ $praktika->Praktikum_ID}}</td>
+                <td> {{ $praktika->Praktikum_ID}} </td>
                 <td>
                     <a href="{{route('firmen.show',$praktika->firmen)}}">
                         {{ $praktika->firmen->Firmenname}}
                     </a>
                 </td>
                 <td>{{ $praktika->Status}}</td>
-                <td>{{ $praktika->teilnehmer->Nachname }}</td>
+                <td>
+                    <a href="{{route('teilnehmer.show',$praktika->teilnehmer)}}">
+                        {{ $praktika->teilnehmer->Nachname}}
+                    </a>
+                </td>
                 <td>
                     <a href="{{route('praktikazeitraeume.show',$praktika->praktikazeitraeume)}}">
                         {{ $praktika->praktikazeitraeume->Start}}

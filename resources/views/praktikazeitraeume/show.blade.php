@@ -6,17 +6,17 @@
         <h3 class="text-center">{{$praktikazeitraeume->Start}} bis {{ $praktikazeitraeume->Ende}}</h3>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('praktikazeitraeume.index')}}" class="btn btn-info"> Zeiträume</a>
             </div>
-            <div class=".col-sm-4 ml-1">
+            <div class="ml-1">
             <a href="{{route('praktikazeitraeume.edit',$praktikazeitraeume)}}" class="btn btn-warning"> Zeitraum
                 bearbeiten</a>
         </div>
-            <div class=".col-sm-4 ml-1">
+            <div class="ml-1">
             {{ Form::open(array('route' => array('praktikazeitraeume.destroy',$praktikazeitraeume),'method' => 'DELETE' ) )}}
             {{ Form::submit('Zeitraum löschen', array('class' => 'btn btn-danger')) }}
             {{ Form::close() }}

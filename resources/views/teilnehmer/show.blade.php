@@ -6,16 +6,16 @@
         <div class="text-center">{{$teilnehmer->berufsziel->Berufszielbezeichnung}}</div>
         <div class="text-center">{{$teilnehmer->semester->Semesterbezeichnung}}</div>
         <div class="btn-group">
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('teilnehmer.index')}}" class="btn btn-info"> Ansprechpartnerliste</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 <a href="{{route('teilnehmer.edit',$teilnehmer)}}" class="btn btn-warning"> Teilnehmer bearbeiten</a>
             </div>
-            <div class=".col-md-4 ml-1">
+            <div class="ml-1">
                 {{Form::open(array('route' => array('teilnehmer.destroy',$teilnehmer),'method' => 'DELETE' ) )}}
                 {{ Form::submit('Teilnehmer löschen', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}

@@ -14,8 +14,8 @@
         <h3 class="text-center">Ansprechpartner verbinden</h3>
 
         <div class="btn-group">
-            <div class=".col-md-4 ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
-            <div class=".col-md-4 ml-1"><a href="{{route('ansprechpartner.index')}}" class="btn btn-info">
+            <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class="ml-1"><a href="{{route('ansprechpartner.index')}}" class="btn btn-info">
                     Ansprechpartnerliste</a></div>
         </div>
     </div>
