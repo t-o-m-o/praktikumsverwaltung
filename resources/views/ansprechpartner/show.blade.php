@@ -63,9 +63,10 @@
 
     <hr class="mb-4">
     <?php $berufsziele = $ansprechpartner->berufsziele ?>
-    <h3>Berufsziele</h3>
+
 
     <div class="table-responsive">
+        <h3>Berufsziele</h3>
         <table class="table table-hover table-striped">
             <tr>
                 <th>Berufszielbezeichnung</th>

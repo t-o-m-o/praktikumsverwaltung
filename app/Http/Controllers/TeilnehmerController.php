@@ -98,7 +98,7 @@ class TeilnehmerController extends Controller
         } catch (\Exception $e) {
             return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
         }
-        return redirect(route('teilnehmer.show', $teilnehmer));
+        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
@@ -125,7 +125,6 @@ class TeilnehmerController extends Controller
     public function index()
     {
         $teilnehmer = teilnehmer::paginate(25);
-        //$daten = ['one' => 'eins', 'two' => 'zwei','three' => 'drei'];
         return view('teilnehmer.index', compact('teilnehmer'));
     }
 }

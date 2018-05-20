@@ -1,8 +1,22 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="row">
-        <div class=".col-sm-4"><a href="{{url()->previous()}}" class="btn btn-info"> zurück</a></div>
+    <div class="container-fluid">
+        <h3 class="text-center">Praktikazeitraum bearbeiten</h3>
+
+        <div class="btn-group">
+            <div class=".col-md-4 ml-1">
+                <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
+            </div>
+            <div class=".col-md-4 ml-1">
+                <a href="{{route('praktikazeitraeume.index')}}" class="btn btn-info">
+                    Zeiträume</a>
+            </div>
+            <div class=".col-md-4 ml-1">
+                <a href="{{route('praktikazeitraeume.create')}}" class="btn btn-info">
+                    Zeitraum hinzufügen</a>
+            </div>
+        </div>
     </div>
     <hr class="mb-4">
     <div class="form-group">
