@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
     <div class="container-fluid">
-        <h3 class="text-center">Kontakt</h3>
-
         <h3 class="text-center">{{$kontaktliste->Kontaktbeschreibung}}</h3>
 
+        <div class="text-center">{{$kontaktliste->Datum}}</div>
         <div class="text-center">{{$kontaktliste->praktika->firmen->Firmenname}}</div>
         <div class="text-center">{{$kontaktliste->praktika->teilnehmer->Vorname}}
             , {{$kontaktliste->praktika->teilnehmer->Nachname}}</div>
+
 
         <div class="btn-group">
             <div class="ml-1">
@@ -22,7 +22,7 @@
             </div>
             <div class="ml-1">
                 {{ Form::open(array('route' => array('kontaktliste.destroy',$kontaktliste),'method' => 'DELETE' ) )}}
-                {{ Form::submit('Zeitraum löschen', array('class' => 'btn btn-danger')) }}
+                {{ Form::submit('Kontakt löschen', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}
             </div>
         </div>

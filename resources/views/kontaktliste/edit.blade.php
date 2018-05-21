@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('content')
+    <?php
+    use App\praktika;
+    $praktika = praktika::all();
+    ?>
 
     <div class="container-fluid">
         <h3 class="text-center">Kontakt bearbeiten</h3>

@@ -28,12 +28,12 @@
     <div class="table-responsive">
         <table class="table table-hover table-striped">
             <tr>
-                <td>ID</td>
-                <td>Firmenname</td>
-                <td>Status</td>
-                <td>Teilnehmer</td>
-                <td>Start</td>
-                <td>Ende</td>
+                <th>ID</th>
+                <th>Firmenname</th>
+                <th>Status</th>
+                <th>Teilnehmer</th>
+                <th>Start</th>
+                <th>Ende</th>
             </tr>
             <tr>
                 <td> {{ $praktika->Praktikum_ID}} </td>
@@ -59,6 +59,31 @@
                     </a>
                 </td>
             </tr>
+        </table>
+    </div>
+    <hr class="mb-4">
+    <?php $kontakte = $praktika->kontaktliste?>
+    <h3 class="text-center">Kontakte </h3>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>Kontaktbeschreibung</th>
+                <th>Datum</th>
+            </tr>
+            @foreach($kontakte as $kontakt)
+                <tr>
+                    <td>
+                        <a href="{{route('kontaktliste.show',$kontakt)}}">
+                            {{$kontakt->Kontaktbeschreibung}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{route('kontaktliste.show',$kontakt)}}">
+                            {{$kontakt->Datum}}
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
         </table>
     </div>
 @endsection
