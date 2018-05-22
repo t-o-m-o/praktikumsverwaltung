@@ -14,7 +14,8 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function index()
     {
-        //
+      $ansprechpartner = ansprechpartnerliste::paginate(25);
+      return view('ansprechpartnerliste.index', compact('ansprechpartnerliste'));
     }
 
     /**
@@ -24,7 +25,7 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function create()
     {
-        //
+      return view('ansprechpartnerliste.create');
     }
 
     /**

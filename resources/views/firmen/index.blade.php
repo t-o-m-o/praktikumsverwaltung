@@ -20,7 +20,6 @@
                     <th>Straße</th>
                     <th>PLZ</th>
                     <th>Ort</th>
-
                 </tr>
                 @foreach($firmen as $firma)
                     <tr>

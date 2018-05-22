@@ -10,7 +10,7 @@ class AnsprechpartnerController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
 
     }
 
@@ -33,7 +33,7 @@ class AnsprechpartnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('ansprechpartner.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class AnsprechpartnerController extends Controller
      */
     public function edit(ansprechpartner $ansprechpartner)
     {
-        //
+        return view('ansprechpartner.edit', compact('ansprechpartner'));
     }
 
     /**
@@ -89,6 +89,7 @@ class AnsprechpartnerController extends Controller
      */
     public function destroy(ansprechpartner $ansprechpartner)
     {
-        //
+      $ansprechpartner->delete();
+      return $this->index();
     }
 }

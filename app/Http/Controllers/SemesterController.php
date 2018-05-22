@@ -46,7 +46,7 @@ class Semestercontroller extends Controller
         $semester = new Semester;
         $semester->Semesterbezeichnung = request('bezeichnung');
         $semester->save();
-        redirect(route('semester.show', $semester));
+        return redirect(route('semester.show', $semester));
     }
 
     /**
@@ -84,7 +84,7 @@ class Semestercontroller extends Controller
 
         $semester->update(array('Semesterbezeichnung' => request('bezeichnung')));
         $semester->save();
-        redirect(route('semester.show', $semester));
+        return redirect(route('semester.show', $semester));
     }
 
     /**
@@ -96,7 +96,7 @@ class Semestercontroller extends Controller
     public function destroy(semester $semester)
     {
         $semester->delete();
-        $this->index();
+        return $this->index();
     }
 
     public static function asArray()
