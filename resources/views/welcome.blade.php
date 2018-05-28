@@ -89,26 +89,25 @@
     <div style="text-align: center; color: #636b6f;">
 
         <div class="wlinks">
-
-            @auth('admin')
-                //if(auth()->guard(User)->check()):
-                user: {{Auth::id()}}
-            @endauth
-            <a href="{{ route('praktika.index') }}">Praktika</a>
-            <a href="{{ route('firmen.index') }}">Firmen</a>
-            <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
-            <a href="{{ route('kontaktliste.index') }}">Kontaktaufnahme</a>
-            <a href="{{ route('ansprechpartner.index') }}">Ansprechpartner</a>
-            <a href="{{ route('ansprechpartnerliste.create') }}">Ansprechpartner verbinden</a>
+            @if (in_array(Auth::user()->typ, ['admin', 'employe']))
+                <a href="{{ route('praktika.index') }}">Praktika</a>
+                <a href="{{ route('firmen.index') }}">Firmen</a>
+                <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
+                <a href="{{ route('kontaktliste.index') }}">Kontaktaufnahme</a>
+                <a href="{{ route('ansprechpartner.index') }}">Ansprechpartner</a>
+                <a href="{{ route('ansprechpartnerliste.create') }}">Ansprechpartner verbinden</a>
+            @endif
         </div>
         <div style="font-size: 84px; margin-bottom: 30px; font-weight: 100;">
             Praktikumsverwaltung
         </div>
 
         <div class="wlinks">
-            <a href="{{ route('semester.index') }}">Semester</a>
-            <a href="{{ route('praktikazeitraeume.index') }}">Praktikazeiträume</a>
-            <a href="{{ route('berufsziel.index') }}">Berufsziel</a>
+            @if (in_array(Auth::user()->typ, ['admin', 'employe']))
+                <a href="{{ route('semester.index') }}">Semester</a>
+                <a href="{{ route('praktikazeitraeume.index') }}">Praktikazeiträume</a>
+                <a href="{{ route('berufsziel.index') }}">Berufsziel</a>
+            @endif
         </div>
     </div>
 </div>

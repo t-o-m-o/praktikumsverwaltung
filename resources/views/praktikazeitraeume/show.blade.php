@@ -21,9 +21,6 @@
             {{ Form::submit('Zeitraum löschen', array('class' => 'btn btn-danger')) }}
             {{ Form::close() }}
         </div>
-            <div class="ml-1"><a href="{{route('kontaktliste.create')}}" class="btn btn-info"> Kontakt
-                    hinzufügen</a>
-            </div>
     </div>
     </div>
     <hr class="mb-4">

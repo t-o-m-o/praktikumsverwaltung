@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ansprechpartner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnsprechpartnerController extends Controller
 {
