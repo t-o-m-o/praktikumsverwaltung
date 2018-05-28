@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/login', function () {
     return view('login');
 })->name('login');
@@ -22,18 +19,17 @@ Route::get('/register', function () {
     return view('login');
 })->name('register');
 
-
+Route::get('ansprechpartnerliste/create', 'AnsprechpartnerlisteController@create')->name('ansprechpartnerliste.create');
+Route::post('ansprechpartnerliste', 'AnsprechpartnerlisteController@store')->name('ansprechpartnerliste.store');
+Route::delete('ansprechpartnerliste', 'AnsprechpartnerlisteController@destroy')->name('ansprechpartnerliste.destroy');;
 Route::resource('ansprechpartner','AnsprechpartnerController');
 Route::resource('firmen', 'FirmenController', ['parameters' => ['firmen' => 'firmen']]);
 Route::resource('praktika','PraktikaController');
+Route::resource('praktikazeitraeume', 'PraktikazeitraeumeController');
 Route::resource('semester','SemesterController');
 Route::resource('teilnehmer','TeilnehmerController');
 Route::resource('berufsziel', 'BerufszielController');
-
-//Route::get('Praktikum/{Praktika_ID}','PraktikaController@show');
-//Route::get('add','PraktikaController@create');
-//Route::post('praktika/store','PraktikaController@store');
-//Route::get('praktika/create','PraktikaController@create');
+Route::resource('kontaktliste', 'KontaklisteController');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'WelcomeController@index')->name('welcome');

@@ -23,6 +23,11 @@ public function teilnehmer()
         return $this->hasOne(praktikazeitraeume::class,'Praktikumszeit_ID','Praktikumszeit_ID');
     }
 
+    public function kontaktliste()
+    {
+        return $this->hasMany(kontaktliste::class, 'Praktikum_ID', 'Praktikum_ID');
+    }
+
     public function firmen()
     {
         return $this->hasOne(firmen::class,'Firmen_ID','Firmen_ID');

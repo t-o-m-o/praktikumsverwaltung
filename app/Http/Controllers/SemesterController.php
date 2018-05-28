@@ -13,15 +13,10 @@ class Semestercontroller extends Controller
         $this->middleware('auth');
 
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public static function asArray()
     {
-        $semester = semester::paginate(25);
-        return view('semester.semesterliste', compact('semester'));
+        return semester::all();
     }
 
     /**
@@ -45,8 +40,12 @@ class Semestercontroller extends Controller
         $request->validate(['bezeichnung' => 'required']);
         $semester = new Semester;
         $semester->Semesterbezeichnung = request('bezeichnung');
-        $semester->save();
-        return redirect(route('semester.show', $semester));
+        try {
+            $semester->save();
+        } catch (\Exception $e) {
+            return view('semester.create')->withErrors($e->getMessage());
+        }
+        redirect(route('semester.show', $semester));
     }
 
     /**
@@ -83,8 +82,12 @@ class Semestercontroller extends Controller
         $request->validate(['bezeichnung' => 'required']);
 
         $semester->update(array('Semesterbezeichnung' => request('bezeichnung')));
-        $semester->save();
-        return redirect(route('semester.show', $semester));
+        try {
+            $semester->save();
+        } catch (\Exception $e) {
+            return view('semester.edit', $semester)->withErrors($e->getMessage());
+        }
+        redirect(route('semester.show', $semester));
     }
 
     /**
@@ -95,13 +98,22 @@ class Semestercontroller extends Controller
      */
     public function destroy(semester $semester)
     {
-        $semester->delete();
-        return $this->index();
+        try {
+            $semester->delete();
+        } catch (\Exception  $e) {
+            return view('semester.show', compact('semester'))->withErrors($e->getMessage());
+        }
+        $this->index();
     }
 
-    public static function asArray()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $semesterl = semester::all();
-        return $semesterl;
+        $semester = semester::paginate(25);
+        return view('semester.index', compact('semester'));
     }
 }

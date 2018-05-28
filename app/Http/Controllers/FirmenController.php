@@ -9,8 +9,7 @@ class FirmenController extends Controller
 {
     public static function asArray()
     {
-        $firmen = firmen::all();
-        return $firmen;
+        return firmen::all();
     }
 
     /**
@@ -47,7 +46,12 @@ class FirmenController extends Controller
         $firma->PLZ = request('plz');
         $firma->Strasse = request('strasse');
         $firma->Telefon = request('telefon');
-        $firma->save();
+        try {
+            $firma->save();
+        } catch (\Exception $e) {
+            return view('firmen.create')->withErrors($e->getMessage());
+        }
+
         return redirect(route('firmen.show', $firma));
     }
 
@@ -99,7 +103,12 @@ class FirmenController extends Controller
             'Strasse' => request('strasse'),
             'Telefon' => request('telefon')
         ));
-        $firmen->save();
+        try {
+            $firmen->save();
+        } catch (\Exception $e) {
+            return view('firmen.edit', $firmen)->withErrors($e->getMessage());
+        }
+
         return redirect(route('firmen.show', $firmen));
     }
 
@@ -111,7 +120,12 @@ class FirmenController extends Controller
      */
     public function destroy(firmen $firmen)
     {
-        $firmen->delete();
+        try {
+            $firmen->delete();
+        } catch (\Exception $e) {
+            return view('firmen.show', compact('firmen'))->withErrors($e->getMessage());
+        }
+
         return $this->index();
     }
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\ansprechpartnerliste;
 use App\praktika;
 use Illuminate\Http\Request;
+use TheSeer\Tokenizer\Exception;
 
 class Praktikacontroller extends Controller
 {
@@ -38,12 +40,16 @@ class Praktikacontroller extends Controller
             'status' => 'required'
         ]);
 
-        $praktikum = new Praktika;
+        $praktikum = new praktika;
         $praktikum->Teilnehmer_ID = request('teilnehmer');
         $praktikum->Firmen_ID = request('firma');
         $praktikum->Praktikumszeit_ID = request('zeit');
         $praktikum->Status = request('status');
-        $praktikum->save();
+        try {
+            $praktikum->save();
+        } catch (\Exception $e) {
+            return view('praktika.create')->withErrors($e->getMessage());
+        }
         return redirect(route('praktika.show', compact($praktikum)));
     }
 
@@ -87,10 +93,17 @@ class Praktikacontroller extends Controller
         ]);
 
         $praktika->update(array(
+            'Teilnehmer_ID' => request('teilnehmer'),
             'Firmen_ID' => request('firma'),
-            'Praktikumszeit_ID' => request('firma'),
-            'Status' => request('status')));
-        $praktika->save();
+            'Praktikumszeit_ID' => request('zeit'),
+            'Status' => request('status')
+        ));
+        try {
+            $praktika->save();
+        } catch (\Exception $e) {
+            return view('praktika.edit', $praktika)->withErrors($e->getMessage());
+        }
+
         return redirect(route('praktika.show', $praktika));
 
     }
@@ -103,7 +116,11 @@ class Praktikacontroller extends Controller
      */
     public function destroy(praktika $praktika)
     {
-        $praktika->delete();
+        try {
+            $praktika->delete();
+        } catch (\Exception $e) {
+            return view('praktika.show', compact('praktika'))->withErrors($e->getMessage());
+        }
         return $this->index();
     }
 
@@ -115,6 +132,6 @@ class Praktikacontroller extends Controller
     public function index()
     {
         $praktika = praktika::paginate(25);
-        return view('praktika.praktikaliste', compact('praktika'));
+        return view('praktika.index', compact('praktika'));
     }
 }

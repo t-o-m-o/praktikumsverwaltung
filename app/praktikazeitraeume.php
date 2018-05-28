@@ -16,7 +16,7 @@ class praktikazeitraeume extends Model
 
     public function praktika()
     {
-        return $this->belongsToMany(praktika::class,'Praktikumszeit_ID','Praktikumszeit_ID');
+        return $this->hasMany(praktika::class, 'Praktikumszeit_ID', 'Praktikumszeit_ID');
     }
 
 }

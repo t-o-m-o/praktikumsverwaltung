@@ -7,14 +7,9 @@ use Illuminate\Http\Request;
 
 class TeilnehmerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public static function asArray()
     {
-        //
+        return teilnehmer::all();
     }
 
     /**
@@ -43,12 +38,16 @@ class TeilnehmerController extends Controller
         ]);
 
         $teilnehmer = new teilnehmer();
-        $teilnehmer->Berufsziel_ID = request('ziel');
+        $teilnehmer->Berufsziel_ID = request('berufsziel');
         $teilnehmer->Semester_ID = request('semester');
         $teilnehmer->Vorname = request('vorname');
         $teilnehmer->Nachname = request('nachname');
-        $teilnehmer->save();
-        redirect('/public/praktika/praktikaliste/');
+        try {
+            $teilnehmer->save();
+        } catch (\Exception $e) {
+            return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+        }
+        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
@@ -59,7 +58,7 @@ class TeilnehmerController extends Controller
      */
     public function show(teilnehmer $teilnehmer)
     {
-        //
+        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
@@ -70,7 +69,7 @@ class TeilnehmerController extends Controller
      */
     public function edit(teilnehmer $teilnehmer)
     {
-        //
+        return view('teilnehmer.edit', compact('teilnehmer'));
     }
 
     /**
@@ -82,7 +81,24 @@ class TeilnehmerController extends Controller
      */
     public function update(Request $request, teilnehmer $teilnehmer)
     {
-        //
+        $request->validate([
+            'vorname' => 'required',
+            'nachname' => 'required',
+            'berufsziel' => 'exists:berufsziel,Berufsziel_ID',
+            'semester' => 'exists:semester,Semester_ID'
+        ]);
+
+        $teilnehmer->update(array(
+            'Semester_ID' => request('semester'),
+            'Berufsziel_ID' => request('berufsziel'),
+            'Vorname' => request('vorname'),
+            'Nachname' => request('nachname'))) ;
+        try {
+            $teilnehmer->save();
+        } catch (\Exception $e) {
+            return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+        }
+        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
@@ -93,12 +109,22 @@ class TeilnehmerController extends Controller
      */
     public function destroy(teilnehmer $teilnehmer)
     {
-        //
+        try {
+            $teilnehmer->delete();
+        } catch (\Exception  $e) {
+            return view('teilnehmer.show', compact('teilnehmer'))->withErrors($e->getMessage());
+        }
+        return $this->index();
     }
 
-    public static function asArray()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $teilnehmerl = teilnehmer::all();
-        return $teilnehmerl;
+        $teilnehmer = teilnehmer::paginate(25);
+        return view('teilnehmer.index', compact('teilnehmer'));
     }
 }

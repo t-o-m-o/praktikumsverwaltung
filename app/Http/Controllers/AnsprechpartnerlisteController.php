@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ansprechpartnerliste;
+use App\Exceptions\Handeler;
+use App\Exceptions\Handler;
 use Illuminate\Http\Request;
+
 
 class AnsprechpartnerlisteController extends Controller
 {
@@ -14,8 +17,7 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function index()
     {
-      $ansprechpartner = ansprechpartnerliste::paginate(25);
-      return view('ansprechpartnerliste.index', compact('ansprechpartnerliste'));
+        //
     }
 
     /**
@@ -25,7 +27,7 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function create()
     {
-      return view('ansprechpartnerliste.create');
+        return view('ansprechpartnerliste.create');
     }
 
     /**
@@ -36,7 +38,23 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'ansprechpartner' => 'exists:ansprechpartner,Ansprechpartner_ID',
+            'firma' => 'exists:firmen,Firmen_ID',
+            'ziel' => 'exists:berufsziel,Berufsziel_ID'
+        ]);
+
+        $ansprechpartnerl = new ansprechpartnerliste;
+        $ansprechpartnerl->Ansprechpartner_ID = request('ansprechpartner');
+        $ansprechpartnerl->Firmen_ID = request('firma');
+        $ansprechpartnerl->Berufsziel_ID = request('ziel');
+        try {
+            $ansprechpartnerl->save();
+        } catch (\Exception  $e) {
+            return view('ansprechpartnerliste.create')->withErrors($e->getMessage());
+        }
+
+        return view('ansprechpartnerliste.create');
     }
 
     /**
@@ -81,6 +99,11 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function destroy(ansprechpartnerliste $ansprechpartnerliste)
     {
-        //
+        try {
+            $ansprechpartnerliste->delete();
+        } catch (\Exception  $e) {
+            return view('ansprechpartner.show', $ansprechpartnerliste->ansprechpartner)->withErrors($e->getMessage());
+        }
+        return url();
     }
 }

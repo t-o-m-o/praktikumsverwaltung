@@ -1,40 +1,53 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
+        <h3 class="text-center">{{$berufsziel->Berufszielbezeichnung}}</h3>
 
-        <div class="row">
-            <div class=".col-sm-4">
-                <a href="{{url()->previous()}}" class="btn btn-info"> zurück</a>
+        <div class="btn-group">
+            <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
+            <div class="ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
+                    Ansprechpartnerliste</a></div>
+            <div class="ml-1">
+                <a href="{{route('berufsziel.edit',$berufsziel)}}" class="btn btn-warning ml-1"> Berufsziel
+                    bearbeiten</a>
             </div>
-            <div class=".col-sm-4">
-                <a href="{{route('praktika.edit',$praktika)}}" class="btn btn-warning"> Praktikum bearbeiten</a>
-            </div>
-            <div class=".col-sm-4">
-                {{Form::open(array('route' => array('praktika.destroy',$praktika),'method' => 'DELETE' ) )}}
-                {{ Form::submit('Praktikum löschen', array('class' => 'btn btn-danger')) }}
+            <div class="ml-1">
+                {{ Form::open(array('route' => array('berufsziel.destroy',$berufsziel),'method' => 'DELETE' ) )}}
+                {{ Form::submit('Berufsziel löschen', array('class' => 'btn btn-danger ml-1')) }}
                 {{ Form::close() }}
             </div>
         </div>
-        {{$berufsziel}}
-        <div class="table-responsive">
-            <table class="table table-hover table-striped">
-                <tr>
-                    <td>ID</td>
-                    <td>Firmenname</td>
-                    <td>Status</td>
-                    <td>Teilnehmer</td>
-                    <td>Start</td>
-                    <td>Ende</td>
-                </tr>
-                <tr>
-                    <td>{{ $praktika->Praktikum_ID}}</td>
-                    <td>{{ $praktika->firmen->Firmenname}}</td>
-                    <td>{{ $praktika->Status}}</td>
-                    <td>{{ $praktika->teilnehmer->Nachname }}</td>
-                    <td>{{ $praktika->praktikazeitraeume->Start}}</td>
-                    <td>{{ $praktika->praktikazeitraeume->Ende}}</td>
-                </tr>
-            </table>
-        </div>
     </div>
+    <hr class="mb-4">
+    <?php $teilnehmer = $berufsziel->teilnehmer ?>
+    <h3>Teilnehmer</h3>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>Semester</th>
+                <th>ID</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+            </tr>
+            @foreach($teilnehmer as $teilnehmerdatensatz)
+                <tr>
+                    <td>
+                        <a href="{{route('semester.show',$teilnehmerdatensatz->semester)}}"> {{$teilnehmerdatensatz->semester->Semesterbezeichnung}}</a>
+                    </td>
+                    <td>
+                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Teilnehmer_ID}}</a>
+                    </td>
+                    <td>
+                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Vorname}}</a>
+                    </td>
+                    <td>
+                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Nachname}}</a>
+                    </td>
+                </tr>
+            @endforeach
+
+        </table>
+    </div>
+
 @endsection
