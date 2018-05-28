@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="container-fluid">
-        <h3 class="text-center">Ansprechpartner</h3>
+        <h3 class="text-center">Zeiträume</h3>
 
         <div class="btn-group">
             <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>

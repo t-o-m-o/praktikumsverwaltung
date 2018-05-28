@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use App\teilnehmer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeilnehmerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public static function asArray()
     {
-        return teilnehmer::all();
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return teilnehmer::all();
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -19,102 +29,126 @@ class TeilnehmerController extends Controller
      */
     public function create()
     {
-        return view('teilnehmer.create');
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('teilnehmer.create');
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'ziel' => 'exists:berufsziel,Berufsziel_ID',
-            'semester' => 'exists:semester,Semester_ID',
-            'vorname' => 'required',
-            'nachname' => 'required'
-        ]);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate([
+                'ziel' => 'exists:berufsziel,Berufsziel_ID',
+                'semester' => 'exists:semester,Semester_ID',
+                'vorname' => 'required',
+                'nachname' => 'required'
+            ]);
 
-        $teilnehmer = new teilnehmer();
-        $teilnehmer->Berufsziel_ID = request('berufsziel');
-        $teilnehmer->Semester_ID = request('semester');
-        $teilnehmer->Vorname = request('vorname');
-        $teilnehmer->Nachname = request('nachname');
-        try {
-            $teilnehmer->save();
-        } catch (\Exception $e) {
-            return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+            $teilnehmer = new teilnehmer();
+            $teilnehmer->Berufsziel_ID = request('berufsziel');
+            $teilnehmer->Semester_ID = request('semester');
+            $teilnehmer->Vorname = request('vorname');
+            $teilnehmer->Nachname = request('nachname');
+            try {
+                $teilnehmer->save();
+            } catch (\Exception $e) {
+                return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+            }
+            return view('teilnehmer.show', compact('teilnehmer'));
+        } else {
+            return view('welcome');
         }
-        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\teilnehmer  $teilnehmer
+     * @param  \App\teilnehmer $teilnehmer
      * @return \Illuminate\Http\Response
      */
     public function show(teilnehmer $teilnehmer)
     {
-        return view('teilnehmer.show', compact('teilnehmer'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('teilnehmer.show', compact('teilnehmer'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\teilnehmer  $teilnehmer
+     * @param  \App\teilnehmer $teilnehmer
      * @return \Illuminate\Http\Response
      */
     public function edit(teilnehmer $teilnehmer)
     {
-        return view('teilnehmer.edit', compact('teilnehmer'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('teilnehmer.edit', compact('teilnehmer'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\teilnehmer  $teilnehmer
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\teilnehmer $teilnehmer
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, teilnehmer $teilnehmer)
     {
-        $request->validate([
-            'vorname' => 'required',
-            'nachname' => 'required',
-            'berufsziel' => 'exists:berufsziel,Berufsziel_ID',
-            'semester' => 'exists:semester,Semester_ID'
-        ]);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate([
+                'vorname' => 'required',
+                'nachname' => 'required',
+                'berufsziel' => 'exists:berufsziel,Berufsziel_ID',
+                'semester' => 'exists:semester,Semester_ID'
+            ]);
 
-        $teilnehmer->update(array(
-            'Semester_ID' => request('semester'),
-            'Berufsziel_ID' => request('berufsziel'),
-            'Vorname' => request('vorname'),
-            'Nachname' => request('nachname'))) ;
-        try {
-            $teilnehmer->save();
-        } catch (\Exception $e) {
-            return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+            $teilnehmer->update(array(
+                'Semester_ID' => request('semester'),
+                'Berufsziel_ID' => request('berufsziel'),
+                'Vorname' => request('vorname'),
+                'Nachname' => request('nachname')));
+            try {
+                $teilnehmer->save();
+            } catch (\Exception $e) {
+                return view('teilnehmer.edit', $teilnehmer)->withErrors($e->getMessage());
+            }
+            return view('teilnehmer.show', compact('teilnehmer'));
+        } else {
+            return view('welcome');
         }
-        return view('teilnehmer.show', compact('teilnehmer'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\teilnehmer  $teilnehmer
+     * @param  \App\teilnehmer $teilnehmer
      * @return \Illuminate\Http\Response
      */
     public function destroy(teilnehmer $teilnehmer)
     {
-        try {
-            $teilnehmer->delete();
-        } catch (\Exception  $e) {
-            return view('teilnehmer.show', compact('teilnehmer'))->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            try {
+                $teilnehmer->delete();
+            } catch (\Exception  $e) {
+                return view('teilnehmer.show', compact('teilnehmer'))->withErrors($e->getMessage());
+            }
+            return $this->index();
+        } else {
+            return view('welcome');
         }
-        return $this->index();
     }
 
     /**
@@ -124,7 +158,11 @@ class TeilnehmerController extends Controller
      */
     public function index()
     {
-        $teilnehmer = teilnehmer::paginate(25);
-        return view('teilnehmer.index', compact('teilnehmer'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $teilnehmer = teilnehmer::paginate(25);
+            return view('teilnehmer.index', compact('teilnehmer'));
+        } else {
+            return view('welcome');
+        }
     }
 }

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\kontaktliste;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KontaklisteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -14,7 +20,11 @@ class KontaklisteController extends Controller
      */
     public function create()
     {
-        return view('kontaktliste.create');
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('kontaktliste.create');
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -25,20 +35,24 @@ class KontaklisteController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['datum' => 'date',
-            'praktikum' => 'exists:praktika,Praktikum_ID',
-            'beschreibung' => 'required'
-        ]);
-        $kontaktliste = new kontaktliste;
-        $kontaktliste->Praktikum_ID = request('praktikum');
-        $kontaktliste->Kontaktbeschreibung = request('beschreibung');
-        $kontaktliste->Datum = request('datum');
-        try {
-            $kontaktliste->save();
-        } catch (\Exception $e) {
-            return view('kontaktliste.create')->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['datum' => 'date',
+                'praktikum' => 'exists:praktika,Praktikum_ID',
+                'beschreibung' => 'required'
+            ]);
+            $kontaktliste = new kontaktliste;
+            $kontaktliste->Praktikum_ID = request('praktikum');
+            $kontaktliste->Kontaktbeschreibung = request('beschreibung');
+            $kontaktliste->Datum = request('datum');
+            try {
+                $kontaktliste->save();
+            } catch (\Exception $e) {
+                return view('kontaktliste.create')->withErrors($e->getMessage());
+            }
+            return redirect(route('kontaktliste.show', $kontaktliste));
+        } else {
+            return view('welcome');
         }
-        return redirect(route('kontaktliste.show', $kontaktliste));
     }
 
     /**
@@ -49,7 +63,11 @@ class KontaklisteController extends Controller
      */
     public function show(kontaktliste $kontaktliste)
     {
-        return view('kontaktliste.show', compact('kontaktliste'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('kontaktliste.show', compact('kontaktliste'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -60,7 +78,11 @@ class KontaklisteController extends Controller
      */
     public function edit(kontaktliste $kontaktliste)
     {
-        return view('kontaktliste.edit', compact('kontaktliste'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('kontaktliste.edit', compact('kontaktliste'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -72,22 +94,26 @@ class KontaklisteController extends Controller
      */
     public function update(Request $request, kontaktliste $kontaktliste)
     {
-        $request->validate(['datum' => 'date',
-            'praktikum' => 'exists:praktika,Praktikum_ID',
-            'beschreibung' => 'required'
-        ]);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['datum' => 'date',
+                'praktikum' => 'exists:praktika,Praktikum_ID',
+                'beschreibung' => 'required'
+            ]);
 
-        $kontaktliste->update(
-            array('Praktikum_ID' => request('praktikum'),
-                'Kontaktbeschreibung' => request('beschreibung'),
-                'Datum' => request('datum')
-            ));
-        try {
-            $kontaktliste->save();
-        } catch (\Exception $e) {
-            return view('kontaktliste.edit', $kontaktliste)->withErrors($e->getMessage());
+            $kontaktliste->update(
+                array('Praktikum_ID' => request('praktikum'),
+                    'Kontaktbeschreibung' => request('beschreibung'),
+                    'Datum' => request('datum')
+                ));
+            try {
+                $kontaktliste->save();
+            } catch (\Exception $e) {
+                return view('kontaktliste.edit', $kontaktliste)->withErrors($e->getMessage());
+            }
+            return redirect(route('kontaktliste.show', $kontaktliste));
+        } else {
+            return view('welcome');
         }
-        return redirect(route('kontaktliste.show', $kontaktliste));
     }
 
     /**
@@ -98,12 +124,16 @@ class KontaklisteController extends Controller
      */
     public function destroy(kontaktliste $kontaktliste)
     {
-        try {
-            $kontaktliste->delete();
-        } catch (\Exception  $e) {
-            return view('kontaktliste.show', compact('kontaktliste'))->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            try {
+                $kontaktliste->delete();
+            } catch (\Exception  $e) {
+                return view('kontaktliste.show', compact('kontaktliste'))->withErrors($e->getMessage());
+            }
+            return $this->index();
+        } else {
+            return view('welcome');
         }
-        return $this->index();
     }
 
     /**
@@ -113,7 +143,11 @@ class KontaklisteController extends Controller
      */
     public function index()
     {
-        $kontaktliste = kontaktliste::paginate(25);
-        return view('kontaktliste.index', compact('kontaktliste'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $kontaktliste = kontaktliste::paginate(25);
+            return view('kontaktliste.index', compact('kontaktliste'));
+        } else {
+            return view('welcome');
+        }
     }
 }
