@@ -50,7 +50,7 @@ class Praktikacontroller extends Controller
         } catch (\Exception $e) {
             return view('praktika.create')->withErrors($e->getMessage());
         }
-        return redirect(route('praktika.show', compact($praktikum)));
+        return redirect(route('praktika.show', $praktikum));
     }
 
     /**
