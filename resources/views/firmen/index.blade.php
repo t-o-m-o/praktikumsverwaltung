@@ -30,8 +30,8 @@
                     <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmen_ID}}</a></td>
                     <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmenname}}</a></td>
                     <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmenbezeichnung}}</a></td>
-                    <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Firmenwebseite}}</a></td>
-                    <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Email}}</a></td>
+                    <td><a href="{{$firma->Firmenwebseite}}"> {{$firma->Firmenwebseite}}</a></td>
+                    <td><a href="mailto:{{$firma->Email}}"> {{$firma->Email}}</a></td>
                     <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Strasse}}</a></td>
                     <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->PLZ}}</a></td>
                     <td><a href="{{route('firmen.show',$firma)}}"> {{$firma->Ort}}</a></td>

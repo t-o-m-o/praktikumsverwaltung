@@ -36,7 +36,11 @@
                 <th>Ende</th>
             </tr>
             <tr>
-                <td> {{ $praktika->Praktikum_ID}} </td>
+                <td>
+                    <a href="{{route('praktika.show',$praktika)}}">
+                        {{ $praktika->Praktikum_ID}}
+                    </a>
+                </td>
                 <td>
                     <a href="{{route('firmen.show',$praktika->firmen)}}">
                         {{ $praktika->firmen->Firmenname}}

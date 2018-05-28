@@ -5,7 +5,9 @@
         <h3 class="text-center">Teilnehmerliste</h3>
 
         <div class="btn-group">
-            <div class="ml-1"><a href="{{url()->previous()}}" class="btn btn-info"> zurück</a></div>
+            <div class="ml-1">
+                <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
+            </div>
             <div class="ml-1"><a href="{{Route('teilnehmer.create')}}" class="btn btn-info"> Teilnehmer
                     hinzufügen</a>
             </div>

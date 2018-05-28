@@ -10,7 +10,7 @@
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
             <div class="ml-1">
-                <a href="{{route('teilnehmer.index')}}" class="btn btn-info"> Ansprechpartnerliste</a>
+                <a href="{{route('teilnehmer.index')}}" class="btn btn-info"> Teilnehmerliste</a>
             </div>
             <div class="ml-1">
                 <a href="{{route('teilnehmer.edit',$teilnehmer)}}" class="btn btn-warning"> Teilnehmer bearbeiten</a>

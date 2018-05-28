@@ -11,7 +11,7 @@
                 <a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a>
             </div>
             <div class="ml-1">
-                <a href="{{route('semester.index')}}" class="btn btn-info"> Ansprechpartnerliste</a>
+                <a href="{{route('semester.index')}}" class="btn btn-info"> Semesterliste</a>
             </div>
             <div class="ml-1">
                 <a href="{{route('semester.edit',$semester)}}" class="btn btn-warning"> Semester bearbeiten</a>
