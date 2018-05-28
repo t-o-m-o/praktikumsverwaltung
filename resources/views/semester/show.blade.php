@@ -30,7 +30,33 @@
     $teilnhemer = $semester->teilnehmer;
     ?>
     <div class="table-responsive">
-        <h3>Teilnehmer</h3>
+        <h3>Teilnehmer ohne Praktikum</h3>
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>Berufsziel</th>
+                <th>Nachname</th>
+                <th>Vorname</th>
+            </tr>
+
+            @foreach($teilnhemer as $teilnehmerdatensatz)
+                <tr>
+                    <td>
+                        <a href="{{route('berufsziel.show',$teilnehmerdatensatz->berufsziel)}}"> {{$teilnehmerdatensatz->berufsziel['Berufszielbezeichnung']}}</a>
+                    </td>
+                    <td>
+                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Nachname}}</a>
+                    </td>
+                    <td>
+                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Vorname}}</a>
+                    </td>
+                </tr>
+            @endforeach
+
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <h3>Teilnehmer mit Praktikum</h3>
         <table class="table table-hover table-striped">
             <tr>
                 <th>Berufsziel</th>

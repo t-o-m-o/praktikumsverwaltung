@@ -81,7 +81,13 @@
 </div>
 
 <div style="position: relative; height: 100vh;  align-items: center; display: flex; justify-content: center;">
+  @if (Auth::user()->typ=="admin")
+    <div class="wlinks">
+        <a href="{{ route('user.index') }}">Benutzerverwaltung</a>
+    </div>
+  @endif
     <div style="text-align: center; color: #636b6f;">
+
         <div class="wlinks">
             <a href="{{ route('praktika.index') }}">Praktika</a>
             <a href="{{ route('firmen.index') }}">Firmen</a>
