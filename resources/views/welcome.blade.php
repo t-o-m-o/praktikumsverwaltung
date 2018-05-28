@@ -89,6 +89,11 @@
     <div style="text-align: center; color: #636b6f;">
 
         <div class="wlinks">
+
+            @auth('admin')
+                //if(auth()->guard(User)->check()):
+                user: {{Auth::id()}}
+            @endauth
             <a href="{{ route('praktika.index') }}">Praktika</a>
             <a href="{{ route('firmen.index') }}">Firmen</a>
             <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>

@@ -79,7 +79,7 @@ class Usercontroller extends Controller
           'name' => 'required',
           'email' => 'email',
           'typ' => ['required',Rule::in(
-            ['admin', 'user']
+              ['admin', 'user', 'employe']
           ),]
       ]);
         $user->update(array(
