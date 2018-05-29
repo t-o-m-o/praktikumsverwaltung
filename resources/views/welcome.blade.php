@@ -89,9 +89,10 @@
     <div style="text-align: center; color: #636b6f;">
 
         <div class="wlinks">
+            <a href="{{ route('firmen.index') }}">Firmen</a>
             @if (in_array(Auth::user()->typ, ['admin', 'employe']))
                 <a href="{{ route('praktika.index') }}">Praktika</a>
-                <a href="{{ route('firmen.index') }}">Firmen</a>
+
                 <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
                 <a href="{{ route('kontaktliste.index') }}">Kontaktaufnahme</a>
                 <a href="{{ route('ansprechpartner.index') }}">Ansprechpartner</a>

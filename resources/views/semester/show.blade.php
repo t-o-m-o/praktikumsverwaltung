@@ -47,7 +47,7 @@
         ->select('teilnehmer.Teilnehmer_ID','teilnehmer.Nachname','teilnehmer.Vorname','praktika.Status')
         ->get();*/
 
-    $mitpraktikum->get()->toArray();
+    $mitpraktikum->get();
     ?>
 
 
@@ -62,7 +62,7 @@
                 <th>Status</th>
             </tr>
             @foreach($mitpraktikum as $teilnehmer)
-                <td><?php //var_dump($teilnehmer['Vorname']) ?></td>
+                <td>{{$teilnehmer}} </td>
             @endforeach
         </table>
     </div>

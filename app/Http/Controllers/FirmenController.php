@@ -170,11 +170,8 @@ class FirmenController extends Controller
      */
     public function index()
     {
-        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
             $firmen = firmen::paginate(25);
             return view('firmen.index', compact('firmen'));
-        } else {
-            return view('welcome');
-        }
+
     }
 }

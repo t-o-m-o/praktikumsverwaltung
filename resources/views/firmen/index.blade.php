@@ -5,8 +5,10 @@
 
         <div class="btn-group">
             <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
-            <div class="ml-1"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
-            </div>
+            @if (in_array(Auth::user()->typ, ['admin', 'employe']))
+                <div class="ml-1"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
+                </div>
+            @endif
         </div>
     </div>
 
