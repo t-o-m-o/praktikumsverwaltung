@@ -35,7 +35,8 @@
         ->select('teilnehmer.Teilnehmer_ID')
         ->where('teilnehmer.Semester_ID',$semester->Semester_ID)
         ->Join('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
-        ->where('praktika.Status','=','zusage');
+        ->where('praktika.Status','=','zusage')
+        ->get();
 
 
 /*    $ohnepraktikum = DB::table('teilnehmer')
@@ -47,7 +48,7 @@
         ->select('teilnehmer.Teilnehmer_ID','teilnehmer.Nachname','teilnehmer.Vorname','praktika.Status')
         ->get();*/
 
-    $mitpraktikum->get();
+
     ?>
 
 
@@ -61,9 +62,7 @@
                 <th>Vorname</th>
                 <th>Status</th>
             </tr>
-            @foreach($mitpraktikum as $teilnehmer)
-                <td>{{$teilnehmer}} </td>
-            @endforeach
+
         </table>
     </div>
 
@@ -75,7 +74,9 @@
                 <th>Nachname</th>
                 <th>Vorname</th>
             </tr>
-
+            @foreach($mitpraktikum as $teilnehmer)
+                <td>{{$teilnehmer->Teilnehmer_ID}} </td>
+            @endforeach
 
         </table>
     </div>
