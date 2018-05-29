@@ -32,10 +32,11 @@
     //$teilnehmerliste->leftJoin('praktika', 'Teilnehmer_ID', '=', 'Teilnehmer_ID');
     //$mitpraktikum = DB::table('praktika')->where('Status','zusage')->exists();
     $mitpraktikum = DB::table('teilnehmer')
-        ->select('teilnehmer.Teilnehmer_ID')
+        ->select('teilnehmer.Teilnehmer_ID', 'teilnehmer.Nachname', 'teilnehmer.Vorname', 'praktika.Status')
         ->where('teilnehmer.Semester_ID',$semester->Semester_ID)
         ->Join('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
-        ->where('praktika.Status','=','zusage');
+        ->where('praktika.Status', '=', 'zusage')
+        ->get();
 
 
 /*    $ohnepraktikum = DB::table('teilnehmer')
@@ -47,7 +48,6 @@
         ->select('teilnehmer.Teilnehmer_ID','teilnehmer.Nachname','teilnehmer.Vorname','praktika.Status')
         ->get();*/
 
-    $mitpraktikum->get()->toArray();
     ?>
 
 
@@ -61,9 +61,7 @@
                 <th>Vorname</th>
                 <th>Status</th>
             </tr>
-            @foreach($mitpraktikum as $teilnehmer)
-                <td><?php //var_dump($teilnehmer['Vorname']) ?></td>
-            @endforeach
+
         </table>
     </div>
 
@@ -75,7 +73,12 @@
                 <th>Nachname</th>
                 <th>Vorname</th>
             </tr>
-
+            @foreach($mitpraktikum as $teilnehmer)
+                <td>{{$teilnehmer->Teilnehmer_ID}}</td>
+                <td>{{$teilnehmer->Nachname}}</td>
+                <td>{{$teilnehmer->Vorname  }}</td>
+                <td>{{$teilnehmer->Status}}</td>
+            @endforeach
 
         </table>
     </div>
