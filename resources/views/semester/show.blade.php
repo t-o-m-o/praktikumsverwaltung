@@ -27,8 +27,31 @@
     <?php
 
     use App\teilnehmer;
-    $teilnhemer = $semester->teilnehmer;
+    use App\praktika;
+
+    //$teilnehmerliste->leftJoin('praktika', 'Teilnehmer_ID', '=', 'Teilnehmer_ID');
+    //$mitpraktikum = DB::table('praktika')->where('Status','zusage')->exists();
+    $mitpraktikum = DB::table('teilnehmer')
+        ->select('teilnehmer.Teilnehmer_ID')
+        ->where('teilnehmer.Semester_ID',$semester->Semester_ID)
+        ->Join('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
+        ->where('praktika.Status','=','zusage');
+
+
+/*    $ohnepraktikum = DB::table('teilnehmer')
+        ->where('Semester_ID',$semester->Semester_ID)
+        ->leftJoin('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
+        ->whereNotIn('teilnehmer.Teilnehmer_ID', $mitpraktikum->get()->Teilnehmer_ID )
+        ->where('praktika.Status','<>','"zusage"')
+        ->orWhereNull('praktika.Status')
+        ->select('teilnehmer.Teilnehmer_ID','teilnehmer.Nachname','teilnehmer.Vorname','praktika.Status')
+        ->get();*/
+
+    $mitpraktikum->get()->toArray();
     ?>
+
+
+
     <div class="table-responsive">
         <h3>Teilnehmer ohne Praktikum</h3>
         <table class="table table-hover table-striped">
@@ -36,22 +59,11 @@
                 <th>Berufsziel</th>
                 <th>Nachname</th>
                 <th>Vorname</th>
+                <th>Status</th>
             </tr>
-
-            @foreach($teilnhemer as $teilnehmerdatensatz)
-                <tr>
-                    <td>
-                        <a href="{{route('berufsziel.show',$teilnehmerdatensatz->berufsziel)}}"> {{$teilnehmerdatensatz->berufsziel['Berufszielbezeichnung']}}</a>
-                    </td>
-                    <td>
-                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Nachname}}</a>
-                    </td>
-                    <td>
-                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Vorname}}</a>
-                    </td>
-                </tr>
+            @foreach($mitpraktikum as $teilnehmer)
+                <td><?php //var_dump($teilnehmer['Vorname']) ?></td>
             @endforeach
-
         </table>
     </div>
 
@@ -64,19 +76,6 @@
                 <th>Vorname</th>
             </tr>
 
-            @foreach($teilnhemer as $teilnehmerdatensatz)
-                <tr>
-                    <td>
-                        <a href="{{route('berufsziel.show',$teilnehmerdatensatz->berufsziel)}}"> {{$teilnehmerdatensatz->berufsziel['Berufszielbezeichnung']}}</a>
-                    </td>
-                    <td>
-                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Nachname}}</a>
-                    </td>
-                    <td>
-                        <a href="{{route('teilnehmer.show',$teilnehmerdatensatz)}}"> {{$teilnehmerdatensatz->Vorname}}</a>
-                    </td>
-                </tr>
-            @endforeach
 
         </table>
     </div>

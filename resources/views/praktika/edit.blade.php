@@ -94,7 +94,26 @@
             <label for="status">Status</label>
 
             <div class="input-group">
-                <input type="text" class="form-control" name="status" id="status" value="{{$praktika->Status}}">
+                <select class="form-control" name="status" id="status">
+                    <option
+                            @if ($praktika->Status == "offen")
+                            selected
+                            @endif
+                            value="offen">offen
+                    </option>
+                    <option
+                            @if ($praktika->Status == "absage")
+                            selected
+                            @endif
+                            value="absage">absage
+                    </option>
+                    <option
+                            @if ($praktika->Status == "zusage")
+                            selected
+                            @endif
+                            value="zusage">zusage
+                    </option>
+                </select>
             </div>
         </div>
 

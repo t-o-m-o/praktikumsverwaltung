@@ -35,7 +35,7 @@
                     @foreach ($teilnehmerliste as $teilnehmer)
                         <option
                                 @if ($teilnehmer->Teilnehmer_ID == old('teilnehmer'))
-                                selected
+                                    selected
                                 @endif
                                 value="{{$teilnehmer->Teilnehmer_ID}}">
                             {{$teilnehmer->Nachname}} &nbsp;&nbsp;&nbsp;
@@ -90,7 +90,26 @@
             <label for="status">Status</label>
 
             <div class="input-group">
-                <input type="text" class="form-control" name="status" id="status" value="{{old('status')}}">
+                <select class="form-control" name="status" id="status">
+                    <option
+                            @if (old('status') == "offen")
+                            selected
+                            @endif
+                            value="offen">offen
+                    </option>
+                    <option
+                            @if (old('status') == "absage")
+                            selected
+                            @endif
+                            value="absage">absage
+                    </option>
+                    <option
+                            @if (old('status') == "zusage")
+                            selected
+                            @endif
+                            value="zusage">zusage
+                    </option>
+                </select>
             </div>
         </div>
 

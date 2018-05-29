@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\praktika;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+
 
 class Praktikacontroller extends Controller
 {
@@ -41,7 +43,9 @@ class Praktikacontroller extends Controller
                 'teilnehmer' => 'exists:teilnehmer,Teilnehmer_ID',
                 'firma' => 'exists:firmen,Firmen_ID',
                 'zeit' => 'exists:praktikazeitraeume,Praktikumszeit_ID',
-                'status' => 'required'
+                'status' => ['required', Rule::in(
+                    ['offen', 'absage', 'zusage']
+                ),]
             ]);
 
             $praktikum = new praktika;
@@ -105,7 +109,9 @@ class Praktikacontroller extends Controller
                 'teilnehmer' => 'exists:teilnehmer,Teilnehmer_ID',
                 'firma' => 'exists:firmen,Firmen_ID',
                 'zeit' => 'exists:praktikazeitraeume,Praktikumszeit_ID',
-                'status' => 'required'
+                'status' => ['required', Rule::in(
+                    ['offen', 'absage', 'zusage']
+                ),]
             ]);
 
             $praktika->update(array(
