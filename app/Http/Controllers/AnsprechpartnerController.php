@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\ansprechpartner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnsprechpartnerController extends Controller
 {
 
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -20,101 +21,133 @@ class AnsprechpartnerController extends Controller
      */
     public function create()
     {
-        return view('ansprechpartner.create');
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('ansprechpartner.create');
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'vorname' => 'required'
-        ]);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate([
+                'name' => 'required',
+                'vorname' => 'required'
+            ]);
 
-        $ansprechpartner = new ansprechpartner;
-        $ansprechpartner->Vorname = request('vorname');
-        $ansprechpartner->Nachname = request('name');
-        $ansprechpartner->Telefon = request('telefon');
-        $ansprechpartner->Email = request('email');
-        try {
-            $ansprechpartner->save();
-        } catch (\Exception $e) {
-            return view('ansprechpartner.create')->withErrors($e->getMessage());
+            $ansprechpartner = new ansprechpartner;
+            $ansprechpartner->Vorname = request('vorname');
+            $ansprechpartner->Nachname = request('name');
+            $ansprechpartner->Telefon = request('telefon');
+            $ansprechpartner->Email = request('email');
+            try {
+                $ansprechpartner->save();
+            } catch (\Exception $e) {
+                return view('ansprechpartner.create')->withErrors($e->getMessage());
+            }
+            return redirect(route('ansprechpartner.show', $ansprechpartner));
+        } else {
+            return view('welcome');
         }
-        return redirect(route('ansprechpartner.show', $ansprechpartner));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ansprechpartner  $ansprechpartner
+     * @param  \App\ansprechpartner $ansprechpartner
      * @return \Illuminate\Http\Response
      */
     public function show(ansprechpartner $ansprechpartner)
     {
-        return view('ansprechpartner.show', compact('ansprechpartner'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('ansprechpartner.show', compact('ansprechpartner'));
+        } else {
+            return view('welcome');
+
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ansprechpartner  $ansprechpartner
+     * @param  \App\ansprechpartner $ansprechpartner
      * @return \Illuminate\Http\Response
      */
-    public function edit(ansprechpartner $ansprechpartner)
+    public
+    function edit(ansprechpartner $ansprechpartner)
     {
-        return view('ansprechpartner.edit', compact('ansprechpartner'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+
+            return view('ansprechpartner.edit', compact('ansprechpartner'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ansprechpartner  $ansprechpartner
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\ansprechpartner $ansprechpartner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ansprechpartner $ansprechpartner)
+    public
+    function update(Request $request, ansprechpartner $ansprechpartner)
     {
-        $request->validate([
-            'name' => 'required',
-            'vorname' => 'required'
-        ]);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
 
-        $ansprechpartner->update(array(
-            'Vorname' => request('vorname'),
-            'Nachname' => request('name'),
-            'Telefon' => request('telefon'),
-            'Email' => request('email')
-        ));
-        try {
-            $ansprechpartner->save();
-        } catch (\Exception $e) {
-            return view('ansprechpartner.edit', $ansprechpartner)->withErrors($e->getMessage());
+            $request->validate([
+                'name' => 'required',
+                'vorname' => 'required'
+            ]);
+
+            $ansprechpartner->update(array(
+                'Vorname' => request('vorname'),
+                'Nachname' => request('name'),
+                'Telefon' => request('telefon'),
+                'Email' => request('email')
+            ));
+            try {
+                $ansprechpartner->save();
+            } catch (\Exception $e) {
+                return view('ansprechpartner.edit', $ansprechpartner)->withErrors($e->getMessage());
+            }
+
+            return redirect(route('ansprechpartner.show', compact('ansprechpartner')));
+        } else {
+            return view('welcome');
+
         }
-
-        return redirect(route('ansprechpartner.show', compact('ansprechpartner')));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ansprechpartner  $ansprechpartner
+     * @param  \App\ansprechpartner $ansprechpartner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ansprechpartner $ansprechpartner)
+    public
+    function destroy(ansprechpartner $ansprechpartner)
     {
-        try {
-            $ansprechpartner->delete();
-        } catch (\Exception  $e) {
-            return view('ansprechpartner.show', compact('ansprechpartner'))->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            try {
+                $ansprechpartner->delete();
+            } catch (\Exception  $e) {
+                return view('ansprechpartner.show', compact('ansprechpartner'))->withErrors($e->getMessage());
+            }
+
+            return $this->index();
+        } else {
+            return view('welcome');
         }
 
-        return $this->index();
     }
 
     /**
@@ -122,9 +155,15 @@ class AnsprechpartnerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public
+    function index()
     {
-        $ansprechpartner = ansprechpartner::paginate(25);
-        return view('ansprechpartner.index', compact('ansprechpartner'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $ansprechpartner = ansprechpartner::paginate(25);
+            return view('ansprechpartner.index', compact('ansprechpartner'));
+        } else {
+            return view('welcome');
+        }
     }
+
 }

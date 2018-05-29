@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\ansprechpartnerliste;
 use App\Exceptions\Handeler;
-use App\Exceptions\Handler;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class AnsprechpartnerlisteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,40 +31,49 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function create()
     {
-        return view('ansprechpartnerliste.create');
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('ansprechpartnerliste.create');
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'ansprechpartner' => 'exists:ansprechpartner,Ansprechpartner_ID',
-            'firma' => 'exists:firmen,Firmen_ID',
-            'ziel' => 'exists:berufsziel,Berufsziel_ID'
-        ]);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate([
+                'ansprechpartner' => 'exists:ansprechpartner,Ansprechpartner_ID',
+                'firma' => 'exists:firmen,Firmen_ID',
+                'ziel' => 'exists:berufsziel,Berufsziel_ID'
+            ]);
 
-        $ansprechpartnerl = new ansprechpartnerliste;
-        $ansprechpartnerl->Ansprechpartner_ID = request('ansprechpartner');
-        $ansprechpartnerl->Firmen_ID = request('firma');
-        $ansprechpartnerl->Berufsziel_ID = request('ziel');
-        try {
-            $ansprechpartnerl->save();
-        } catch (\Exception  $e) {
-            return view('ansprechpartnerliste.create')->withErrors($e->getMessage());
+            $ansprechpartnerl = new ansprechpartnerliste;
+            $ansprechpartnerl->Ansprechpartner_ID = request('ansprechpartner');
+            $ansprechpartnerl->Firmen_ID = request('firma');
+            $ansprechpartnerl->Berufsziel_ID = request('ziel');
+            try {
+                $ansprechpartnerl->save();
+            } catch (\Exception  $e) {
+                return view('ansprechpartnerliste.create')->withErrors($e->getMessage());
+            }
+
+            return view('ansprechpartnerliste.create');
+        } else {
+            return view('welcome');
         }
-
-        return view('ansprechpartnerliste.create');
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ansprechpartnerliste  $ansprechpartnerliste
+     * @param  \App\ansprechpartnerliste $ansprechpartnerliste
      * @return \Illuminate\Http\Response
      */
     public function show(ansprechpartnerliste $ansprechpartnerliste)
@@ -71,7 +84,7 @@ class AnsprechpartnerlisteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ansprechpartnerliste  $ansprechpartnerliste
+     * @param  \App\ansprechpartnerliste $ansprechpartnerliste
      * @return \Illuminate\Http\Response
      */
     public function edit(ansprechpartnerliste $ansprechpartnerliste)
@@ -82,8 +95,8 @@ class AnsprechpartnerlisteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ansprechpartnerliste  $ansprechpartnerliste
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\ansprechpartnerliste $ansprechpartnerliste
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ansprechpartnerliste $ansprechpartnerliste)
@@ -94,16 +107,20 @@ class AnsprechpartnerlisteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ansprechpartnerliste  $ansprechpartnerliste
+     * @param  \App\ansprechpartnerliste $ansprechpartnerliste
      * @return \Illuminate\Http\Response
      */
     public function destroy(ansprechpartnerliste $ansprechpartnerliste)
     {
-        try {
-            $ansprechpartnerliste->delete();
-        } catch (\Exception  $e) {
-            return view('ansprechpartner.show', $ansprechpartnerliste->ansprechpartner)->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            try {
+                $ansprechpartnerliste->delete();
+            } catch (\Exception  $e) {
+                return view('ansprechpartner.show', $ansprechpartnerliste->ansprechpartner)->withErrors($e->getMessage());
+            }
+            return url();
+        } else {
+            return view('welcome');
         }
-        return url();
     }
 }

@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use App\praktikazeitraeume;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Praktikazeitraeumecontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public static function asArray()
     {
-        return praktikazeitraeume::all();
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return praktikazeitraeume::all();
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -19,7 +29,11 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function create()
     {
-        return view('praktikazeitraeume.create');
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('praktikazeitraeume.create');
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -30,16 +44,20 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['start' => 'date', 'ende' => 'date']);
-        $praktikazeitraeume = new praktikazeitraeume;
-        $praktikazeitraeume->Start = request('start');
-        $praktikazeitraeume->Ende = request('ende');
-        try {
-            $praktikazeitraeume->save();
-        } catch (\Exception $e) {
-            return view('praktikazeitraeume.create')->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['start' => 'date', 'ende' => 'date']);
+            $praktikazeitraeume = new praktikazeitraeume;
+            $praktikazeitraeume->Start = request('start');
+            $praktikazeitraeume->Ende = request('ende');
+            try {
+                $praktikazeitraeume->save();
+            } catch (\Exception $e) {
+                return view('praktikazeitraeume.create')->withErrors($e->getMessage());
+            }
+            return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
+        } else {
+            return view('welcome');
         }
-        return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
     }
 
     /**
@@ -50,7 +68,11 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function show(praktikazeitraeume $praktikazeitraeume)
     {
-        return view('praktikazeitraeume.show', compact('praktikazeitraeume'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('praktikazeitraeume.show', compact('praktikazeitraeume'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -61,7 +83,11 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function edit(praktikazeitraeume $praktikazeitraeume)
     {
-        return view('praktikazeitraeume.edit', compact('praktikazeitraeume'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('praktikazeitraeume.edit', compact('praktikazeitraeume'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -73,20 +99,24 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function update(Request $request, praktikazeitraeume $praktikazeitraeume)
     {
-        $request->validate(['start' => 'required'],
-            ['ende' => 'required']
-        );
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['start' => 'required'],
+                ['ende' => 'required']
+            );
 
-        $praktikazeitraeume->update(
-            array('Start' => request('start'),
-                'Ende' => request('ende')
-            ));
-        try {
-            $praktikazeitraeume->save();
-        } catch (\Exception $e) {
-            return view('praktikazeitraeume.edit', $praktikazeitraeume)->withErrors($e->getMessage());
+            $praktikazeitraeume->update(
+                array('Start' => request('start'),
+                    'Ende' => request('ende')
+                ));
+            try {
+                $praktikazeitraeume->save();
+            } catch (\Exception $e) {
+                return view('praktikazeitraeume.edit', $praktikazeitraeume)->withErrors($e->getMessage());
+            }
+            return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
+        } else {
+            return view('welcome');
         }
-        return redirect(route('praktikazeitraeume.show', $praktikazeitraeume));
     }
 
     /**
@@ -97,12 +127,16 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function destroy(praktikazeitraeume $praktikazeitraeume)
     {
-        try {
-            $praktikazeitraeume->delete();
-        } catch (\Exception  $e) {
-            return view('praktikazeitraeume.show', compact('praktikazeitraeume'))->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            try {
+                $praktikazeitraeume->delete();
+            } catch (\Exception  $e) {
+                return view('praktikazeitraeume.show', compact('praktikazeitraeume'))->withErrors($e->getMessage());
+            }
+            return $this->index();
+        } else {
+            return view('welcome');
         }
-        return $this->index();
     }
 
     /**
@@ -112,7 +146,11 @@ class Praktikazeitraeumecontroller extends Controller
      */
     public function index()
     {
-        $praktikazeitraeume = praktikazeitraeume::paginate(25);
-        return view('praktikazeitraeume.index', compact('praktikazeitraeume'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $praktikazeitraeume = praktikazeitraeume::paginate(25);
+            return view('praktikazeitraeume.index', compact('praktikazeitraeume'));
+        } else {
+            return view('welcome');
+        }
     }
 }

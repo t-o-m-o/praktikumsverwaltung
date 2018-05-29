@@ -6,7 +6,7 @@
         <div class="btn-group">
             <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
             <div class="ml-1"><a href="{{route('berufsziel.index')}}" class="btn btn-info">
-                    Ansprechpartnerliste</a></div>
+                    Berufsziele</a></div>
             <div class="ml-1">
                 <a href="{{route('berufsziel.edit',$berufsziel)}}" class="btn btn-warning ml-1"> Berufsziel
                     bearbeiten</a>

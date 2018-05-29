@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use App\berufsziel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BerufszielController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public static function asArray()
     {
-        return berufsziel::all();
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return berufsziel::all();
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -19,86 +29,110 @@ class BerufszielController extends Controller
      */
     public function create()
     {
-        return view('berufsziel.create');
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('berufsziel.create');
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $request->validate(['bezeichnung' => 'required']);
-        $berufsziel = new berufsziel;
-        $berufsziel->Berufszielbezeichnung = request('bezeichnung');
-        try {
-            $berufsziel->save();
-        } catch (\Exception $e) {
-            return view('berufsziel.create')->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['bezeichnung' => 'required']);
+            $berufsziel = new berufsziel;
+            $berufsziel->Berufszielbezeichnung = request('bezeichnung');
+            try {
+                $berufsziel->save();
+            } catch (\Exception $e) {
+                return view('berufsziel.create')->withErrors($e->getMessage());
+            }
+            return redirect(route('berufsziel.show', $berufsziel));
+        } else {
+            return view('welcome');
         }
-        return redirect(route('berufsziel.show', $berufsziel));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\berufsziel  $berufsziel
+     * @param  \App\berufsziel $berufsziel
      * @return \Illuminate\Http\Response
      */
     public function show(berufsziel $berufsziel)
     {
-        return view('berufsziel.show', compact('berufsziel'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('berufsziel.show', compact('berufsziel'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\berufsziel  $berufsziel
+     * @param  \App\berufsziel $berufsziel
      * @return \Illuminate\Http\Response
      */
     public function edit(berufsziel $berufsziel)
     {
-        return view('berufsziel.edit', compact('berufsziel'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('berufsziel.edit', compact('berufsziel'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\berufsziel  $berufsziel
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\berufsziel $berufsziel
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, berufsziel $berufsziel)
     {
-        $request->validate(['bezeichnung' => 'required']);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['bezeichnung' => 'required']);
 
-        $berufsziel->update(array('Berufszielbezeichnung' => request('bezeichnung')));
-        try {
-            $berufsziel->save();
-        } catch (\Exception  $e) {
-            return view('berufsziel.edit', $berufsziel)->withErrors($e->getMessage());
+            $berufsziel->update(array('Berufszielbezeichnung' => request('bezeichnung')));
+            try {
+                $berufsziel->save();
+            } catch (\Exception  $e) {
+                return view('berufsziel.edit', $berufsziel)->withErrors($e->getMessage());
+            }
+
+            return redirect(route('berufsziel.show', $berufsziel));
+        } else {
+            return view('welcome');
         }
-
-        return redirect(route('berufsziel.show', $berufsziel));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\berufsziel  $berufsziel
+     * @param  \App\berufsziel $berufsziel
      * @return \Illuminate\Http\Response
      */
     public function destroy(berufsziel $berufsziel)
     {
-        try {
-            $berufsziel->delete();
-        } catch (\Exception  $e) {
-            return view('berufsziel.show', compact('berufsziel'))->withErrors($e->getMessage());
-        }
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            try {
+                $berufsziel->delete();
+            } catch (\Exception  $e) {
+                return view('berufsziel.show', compact('berufsziel'))->withErrors($e->getMessage());
+            }
 
-        return $this->index();
+            return $this->index();
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -108,7 +142,11 @@ class BerufszielController extends Controller
      */
     public function index()
     {
-        $berufsziel = berufsziel::paginate(25);
-        return view('berufsziel.index', compact('berufsziel'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $berufsziel = berufsziel::paginate(25);
+            return view('berufsziel.index', compact('berufsziel'));
+        } else {
+            return view('welcome');
+        }
     }
 }

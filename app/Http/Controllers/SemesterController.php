@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\semester;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Semestercontroller extends Controller
 {
@@ -16,7 +17,11 @@ class Semestercontroller extends Controller
 
     public static function asArray()
     {
-        return semester::all();
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return semester::all();
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -26,84 +31,111 @@ class Semestercontroller extends Controller
      */
     public function create()
     {
-        return view('semester.create');
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('semester.create');
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $request->validate(['bezeichnung' => 'required']);
-        $semester = new Semester;
-        $semester->Semesterbezeichnung = request('bezeichnung');
-        try {
-            $semester->save();
-        } catch (\Exception $e) {
-            return view('semester.create')->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['bezeichnung' => 'required']);
+            $semester = new Semester;
+            $semester->Semesterbezeichnung = request('bezeichnung');
+            try {
+                $semester->save();
+            } catch (\Exception $e) {
+                return view('semester.create')->withErrors($e->getMessage());
+            }
+            redirect(route('semester.show', $semester));
+        } else {
+            return view('welcome');
         }
-        redirect(route('semester.show', $semester));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\semester  $semester
+     * @param  \App\semester $semester
      * @return \Illuminate\Http\Response
      */
     public function show(semester $semester)
     {
-        return view('semester.show',compact('semester'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('semester.show', compact('semester'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\semester  $semester
+     * @param  \App\semester $semester
      * @return \Illuminate\Http\Response
      */
-    public function edit(semester $semester)
+    public
+    function edit(semester $semester)
     {
-        return view('semester.edit', compact('semester'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('semester.edit', compact('semester'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\semester  $semester
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\semester $semester
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, semester $semester)
+    public
+    function update(Request $request, semester $semester)
     {
-        $request->validate(['bezeichnung' => 'required']);
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate(['bezeichnung' => 'required']);
 
-        $semester->update(array('Semesterbezeichnung' => request('bezeichnung')));
-        try {
-            $semester->save();
-        } catch (\Exception $e) {
-            return view('semester.edit', $semester)->withErrors($e->getMessage());
+            $semester->update(array('Semesterbezeichnung' => request('bezeichnung')));
+            try {
+                $semester->save();
+            } catch (\Exception $e) {
+                return view('semester.edit', $semester)->withErrors($e->getMessage());
+            }
+            redirect(route('semester.show', $semester));
+        } else {
+            return view('welcome');
         }
-        redirect(route('semester.show', $semester));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\semester  $semester
+     * @param  \App\semester $semester
      * @return \Illuminate\Http\Response
      */
-    public function destroy(semester $semester)
+    public
+    function destroy(semester $semester)
     {
-        try {
-            $semester->delete();
-        } catch (\Exception  $e) {
-            return view('semester.show', compact('semester'))->withErrors($e->getMessage());
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            try {
+                $semester->delete();
+            } catch (\Exception  $e) {
+                return view('semester.show', compact('semester'))->withErrors($e->getMessage());
+            }
+            $this->index();
+        } else {
+            return view('welcome');
         }
-        $this->index();
     }
 
     /**
@@ -111,9 +143,14 @@ class Semestercontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public
+    function index()
     {
-        $semester = semester::paginate(25);
-        return view('semester.index', compact('semester'));
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $semester = semester::paginate(25);
+            return view('semester.index', compact('semester'));
+        } else {
+            return view('welcome');
+        }
     }
 }
