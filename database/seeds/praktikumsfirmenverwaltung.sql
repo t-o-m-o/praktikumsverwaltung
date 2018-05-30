@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 25. Mai 2018 um 11:11
+-- Erstellungszeit: 30. Mai 2018 um 11:19
 -- Server-Version: 10.1.30-MariaDB
 -- PHP-Version: 7.2.1
 
@@ -67,10 +67,7 @@ CREATE TABLE `ansprechpartnerliste` (
 
 INSERT INTO `ansprechpartnerliste` (`id`, `Firmen_ID`, `Berufsziel_ID`, `Ansprechpartner_ID`) VALUES
 (1, 1, 1, 1),
-(4, 1, 2, 1),
-(2, 1, 2, 2),
-(3, 2, 1, 2),
-(5, 2, 4, 2),
+(3, 2, 1, 3),
 (6, 3, 1, 5);
 
 -- --------------------------------------------------------
@@ -159,6 +156,13 @@ CREATE TABLE `kontaktliste` (
   `Kontaktbeschreibung` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Daten für Tabelle `kontaktliste`
+--
+
+INSERT INTO `kontaktliste` (`id`, `Praktikum_ID`, `Datum`, `Kontaktbeschreibung`) VALUES
+(1, 9, '2018-05-08', 'Bewerbungsgespräch');
+
 -- --------------------------------------------------------
 
 --
@@ -170,6 +174,25 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` text NOT NULL,
+  `token` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('admin@localhost.dev', '$2y$10$Lc6PgE3EjGAeqDPUZQ1BgO9pQTndrARaLQ8HyQwEGZ1SWaQM17FOO', '2018-05-30 06:48:51');
 
 -- --------------------------------------------------------
 
@@ -190,9 +213,7 @@ CREATE TABLE `praktika` (
 --
 
 INSERT INTO `praktika` (`Praktikum_ID`, `Teilnehmer_ID`, `Firmen_ID`, `Praktikumszeit_ID`, `Status`) VALUES
-(1, 1, 1, 1, 'offen'),
-(8, 1, 1, 1, 'offen'),
-(9, 1, 1, 1, 'offen'),
+(9, 1, 1, 1, 'zusage'),
 (10, 3, 1, 1, 'offen');
 
 -- --------------------------------------------------------
@@ -270,9 +291,9 @@ INSERT INTO `teilnehmer` (`Teilnehmer_ID`, `Semester_ID`, `Berufsziel_ID`, `Vorn
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `typ` varchar(10) NOT NULL,
-  `name` text NOT NULL,
-  `email` text NOT NULL,
+  `typ` char(15) NOT NULL,
+  `name` char(50) NOT NULL,
+  `email` char(100) NOT NULL,
   `password` text NOT NULL,
   `password_confirmation` text,
   `updated_at` datetime NOT NULL,
@@ -285,9 +306,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `typ`, `name`, `email`, `password`, `password_confirmation`, `updated_at`, `created_at`, `remember_token`) VALUES
-(1, 'admin', 'Torsten Möller', 'moetor@web.de', '$2y$10$ZP6Y.VQJeJpxHoE/5kNFDea8cEHCOj4KQl0gqiReRlVMYpazFOTeK', NULL, '2018-05-09 22:52:29', '2018-05-09 22:52:29', 'VO0AtZkl12Lyu0jUZjXleHsB6Cz1GhoZs0YTRKqQ8ZGBHhYSPny6BQaOInPd'),
-(2, 'admin', 'Leif', 'leif@web.de', '$2y$10$M6wgqONSAP2SVLOG3jTEMO8ZXh0iK4v6tBwJZIBCe.KDmLI9/qKJi', NULL, '2018-05-14 11:57:49', '2018-05-14 11:57:49', 'Tikkso96rjWo91ounYLz1x70PINj5stdQsrBl3NqfdYe5fRSzcbLiEdaiBLI'),
-(3, 'user', 'Steffen', 'steffen@web.de', '$2y$10$v/EbeOeMotrfq2uBQceW0.AlfSuaP6AQ77Ko78IQdC4vjHciY1LcG', NULL, '2018-05-24 08:35:00', '2018-05-24 08:35:00', '2F0RTGAnw7aniUbR4hyBDkthNbTdJoci4YgcYlo3q3nRm7hmuTa1BdoqgQ41');
+(1, 'user', 'Torsten Möller', 'moetor@web.de', '$2y$10$ZP6Y.VQJeJpxHoE/5kNFDea8cEHCOj4KQl0gqiReRlVMYpazFOTeK', NULL, '2018-05-30 08:29:14', '2018-05-09 22:52:29', 'IE0hCTxUYV5KKVJuk1XRrptrysZUFhdJE7YUGlYzVTx5oDAZuAMOQMWbKxlj'),
+(2, 'employe', 'Leif', 'leif@web.de', '$2y$10$M6wgqONSAP2SVLOG3jTEMO8ZXh0iK4v6tBwJZIBCe.KDmLI9/qKJi', NULL, '2018-05-29 06:48:10', '2018-05-14 11:57:49', 'Tikkso96rjWo91ounYLz1x70PINj5stdQsrBl3NqfdYe5fRSzcbLiEdaiBLI'),
+(6, 'admin', 'admin', 'admin@localhost.dev', '$2y$10$N4y6R.c6lBfCBMPD2oMwQuTZZzVeCtQ.1QFs1zASM84NbGHpevWR6', NULL, '2018-05-30 08:28:40', '2018-05-30 08:28:07', 'lj8Kp1c06sHRKsRg5cl3K3ZXQXudMp1wXfzaXuuIUNvj6qpFwvxRcxuXmIHM');
 
 --
 -- Indizes der exportierten Tabellen
@@ -371,7 +392,9 @@ ALTER TABLE `teilnehmer`
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -387,7 +410,7 @@ ALTER TABLE `ansprechpartner`
 -- AUTO_INCREMENT für Tabelle `ansprechpartnerliste`
 --
 ALTER TABLE `ansprechpartnerliste`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `berufsziel`
@@ -405,7 +428,7 @@ ALTER TABLE `firmen`
 -- AUTO_INCREMENT für Tabelle `kontaktliste`
 --
 ALTER TABLE `kontaktliste`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `migrations`
@@ -417,7 +440,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT für Tabelle `praktika`
 --
 ALTER TABLE `praktika`
-  MODIFY `Praktikum_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Praktikum_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT für Tabelle `praktikazeitraeume`
@@ -441,7 +464,7 @@ ALTER TABLE `teilnehmer`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints der exportierten Tabellen
