@@ -20,6 +20,9 @@
                 <a href="{{route('kontaktliste.create')}}" class="btn btn-info">
                     Kontakt hinzufügen</a>
             </div>
+            <div class="ml-1"><a href="{{Route('praktika.create')}}" class="btn btn-info"> Praktikum
+                    hinzufügen</a>
+            </div>
         </div>
     </div>
     <hr class="mb-4">

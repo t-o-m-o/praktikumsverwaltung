@@ -26,6 +26,12 @@
                 <a href="{{route('teilnehmer.create')}}" class="btn btn-info">
                     Teilnehmer hinzufügen</a>
             </div>
+            <div class="ml-1"><a href="{{Route('semester.create')}}" class="btn btn-info"> Semester
+                    hinzufügen</a>
+            </div>
+            <div class="ml-1"><a href="{{route('berufsziel.create')}}" class="btn btn-info"> Berufsziel
+                    hinzufügen</a>
+            </div>
         </div>
     </div>
     <hr class="mb-4">

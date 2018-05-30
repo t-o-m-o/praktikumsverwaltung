@@ -18,6 +18,14 @@
             <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
             <div class="ml-1"><a href="{{route('praktika.index')}}" class="btn btn-info"> Praktikumsliste</a>
             </div>
+            <div class="ml-1"><a href="{{Route('teilnehmer.create')}}" class="btn btn-info"> Teilnehmer
+                    hinzufügen</a>
+            </div>
+            <div class="ml-1"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
+            </div>
+            <div class="ml-1"><a href="{{route('praktikazeitraeume.create')}}" class="btn btn-info"> Zeitraum
+                    hinzufügen</a>
+            </div>
         </div>
     </div>
     <hr class="mb-4">

@@ -18,7 +18,14 @@
             <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
             <div class="ml-1"><a href="{{route('teilnehmer.index')}}" class="btn btn-info">
                     Teilnehmerliste</a></div>
+            <div class="ml-1"><a href="{{Route('semester.create')}}" class="btn btn-info"> Semester
+                    hinzufügen</a>
+            </div>
+            <div class="ml-1"><a href="{{route('berufsziel.create')}}" class="btn btn-info"> Berufsziel
+                    hinzufügen</a>
+            </div>
         </div>
+
     </div>
 
     <hr class="mb-4">

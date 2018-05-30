@@ -6,11 +6,9 @@
         <div class="btn-group">
             <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
             <div class="ml-1"><a href="{{route('ansprechpartner.create')}}" class="btn btn-info">
-                    Ansprechpartner
-                    hinzufügen</a></div>
+                    Ansprechpartner hinzufügen</a></div>
             <div class="ml-1"><a href="{{route('ansprechpartnerliste.create')}}" class="btn btn-info">
-                    Ansprechpartner
-                    verbinden</a></div>
+                    Ansprechpartner verbinden</a></div>
         </div>
     </div>
     <hr class="mb-4">

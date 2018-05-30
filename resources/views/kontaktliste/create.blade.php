@@ -13,6 +13,9 @@
             <div class="ml-1"><a href="{{route('welcome')}}" class="btn btn-info"> Übersicht</a></div>
             <div class="ml-1"><a href="{{route('kontaktliste.index')}}" class="btn btn-info">
                     Kontakte</a></div>
+            <div class="ml-1"><a href="{{Route('praktika.create')}}" class="btn btn-info"> Praktikum
+                    hinzufügen</a>
+            </div>
         </div>
     </div>
     <hr class="mb-4">

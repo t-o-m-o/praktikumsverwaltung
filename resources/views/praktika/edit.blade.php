@@ -27,6 +27,14 @@
                 <a href="{{route('praktika.create')}}" class="btn btn-info">
                     Praktikum hinzufügen</a>
             </div>
+            <div class="ml-1"><a href="{{Route('teilnehmer.create')}}" class="btn btn-info"> Teilnehmer
+                    hinzufügen</a>
+            </div>
+            <div class="ml-1"><a href="{{route('firmen.create')}}" class="btn btn-info"> Firma hinzufügen</a>
+            </div>
+            <div class="ml-1"><a href="{{route('praktikazeitraeume.create')}}" class="btn btn-info"> Zeitraum
+                    hinzufügen</a>
+            </div>
         </div>
     </div>
     <hr class="mb-4">
