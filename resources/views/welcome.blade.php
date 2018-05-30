@@ -96,7 +96,7 @@
                 <a href="{{ route('teilnehmer.index') }}">Teilnehmer</a>
                 <a href="{{ route('kontaktliste.index') }}">Kontaktaufnahme</a>
                 <a href="{{ route('ansprechpartner.index') }}">Ansprechpartner</a>
-                <a href="{{ route('ansprechpartnerliste.create') }}">Ansprechpartner verbinden</a>
+                <a href="{{ route('ansprechpartnerliste.index') }}">Ansprechpartnerverbindungen</a>
             @endif
         </div>
         <div style="font-size: 84px; margin-bottom: 30px; font-weight: 100;">

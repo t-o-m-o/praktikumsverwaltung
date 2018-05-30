@@ -32,25 +32,46 @@
     //$teilnehmerliste->leftJoin('praktika', 'Teilnehmer_ID', '=', 'Teilnehmer_ID');
     //$mitpraktikum = DB::table('praktika')->where('Status','zusage')->exists();
     $mitpraktikum = DB::table('teilnehmer')
-        ->select('teilnehmer.Teilnehmer_ID', 'teilnehmer.Nachname', 'teilnehmer.Vorname', 'praktika.Status')
+        ->select('teilnehmer.Teilnehmer_ID', 'teilnehmer.Nachname',
+            'teilnehmer.Vorname', 'praktika.Status', 'berufsziel.Berufszielbezeichnung',
+            'berufsziel.Berufsziel_ID')
         ->where('teilnehmer.Semester_ID',$semester->Semester_ID)
+        ->Join('berufsziel','teilnehmer.Berufsziel_ID','=','berufsziel.Berufsziel_ID')
         ->Join('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
         ->where('praktika.Status', '=', 'zusage')
         ->get();
-
-
-/*    $ohnepraktikum = DB::table('teilnehmer')
-        ->where('Semester_ID',$semester->Semester_ID)
-        ->leftJoin('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
-        ->whereNotIn('teilnehmer.Teilnehmer_ID', $mitpraktikum->get()->Teilnehmer_ID )
-        ->where('praktika.Status','<>','"zusage"')
-        ->orWhereNull('praktika.Status')
-        ->select('teilnehmer.Teilnehmer_ID','teilnehmer.Nachname','teilnehmer.Vorname','praktika.Status')
-        ->get();*/
-
     ?>
+    <div class="table-responsive">
+        <h3>Teilnehmer mit Praktikum</h3>
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>Berufsziel</th>
+                <th>Nachname</th>
+                <th>Vorname</th>
+            </tr>
+            @foreach($mitpraktikum as $teilnehmer)
+                <tr>
+                    <?php $liste[] = $teilnehmer->Teilnehmer_ID?>
+                    <td><a href="{{route('berufsziel.show',$teilnehmer->Berufsziel_ID)}}">{{$teilnehmer->Berufszielbezeichnung}}</a></td>
+                        <td><a href="{{route('teilnehmer.show',$teilnehmer->Teilnehmer_ID)}}"> {{$teilnehmer->Nachname}}</a></td>
+                        <td><a href="{{route('teilnehmer.show',$teilnehmer->Teilnehmer_ID)}}"> {{$teilnehmer->Vorname}}</a></td>
+                </tr>
+            @endforeach
 
-
+        </table>
+    </div>
+    <?php
+        $ohnepraktikum = DB::table('teilnehmer')
+            ->select('teilnehmer.Teilnehmer_ID','teilnehmer.Nachname','teilnehmer.Vorname','praktika.Status',
+                'praktika.Praktikum_ID','berufsziel.Berufszielbezeichnung','berufsziel.Berufsziel_ID')
+            ->where('Semester_ID',$semester->Semester_ID)
+            ->leftJoin('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
+            ->whereNotIn('teilnehmer.Teilnehmer_ID', $liste )
+            ->where('praktika.Status','<>','"zusage"')
+            ->orWhereNull('praktika.Status')
+            ->Join('berufsziel','teilnehmer.Berufsziel_ID','=','berufsziel.Berufsziel_ID')
+            ->get();
+    ?>
 
     <div class="table-responsive">
         <h3>Teilnehmer ohne Praktikum</h3>
@@ -61,25 +82,22 @@
                 <th>Vorname</th>
                 <th>Status</th>
             </tr>
-
-        </table>
-    </div>
-
-    <div class="table-responsive">
-        <h3>Teilnehmer mit Praktikum</h3>
-        <table class="table table-hover table-striped">
-            <tr>
-                <th>Berufsziel</th>
-                <th>Nachname</th>
-                <th>Vorname</th>
-            </tr>
-            @foreach($mitpraktikum as $teilnehmer)
-                <td>{{$teilnehmer->Teilnehmer_ID}}</td>
-                <td>{{$teilnehmer->Nachname}}</td>
-                <td>{{$teilnehmer->Vorname  }}</td>
-                <td>{{$teilnehmer->Status}}</td>
+            @foreach($ohnepraktikum as $teilnehmer)
+                <tr>
+                    <td><a href="{{route('berufsziel.show',$teilnehmer->Berufsziel_ID)}}">{{$teilnehmer->Berufszielbezeichnung}}</a></td>
+                    <td><a href="{{route('teilnehmer.show',$teilnehmer->Teilnehmer_ID)}}"> {{$teilnehmer->Nachname}}</a></td>
+                    <td><a href="{{route('teilnehmer.show',$teilnehmer->Teilnehmer_ID)}}"> {{$teilnehmer->Vorname}}</a></td>
+                    @isset($teilnehmer->Praktikum_ID)
+                        <td><a href="{{route('praktika.show',$teilnehmer->Praktikum_ID)}}">{{ $teilnehmer->Status}}</a></td>
+                    @else
+                        <td>keine Bewerbungen</td>
+                    @endisset
+                </tr>
             @endforeach
-
         </table>
     </div>
+
+
+
+
 @endsection

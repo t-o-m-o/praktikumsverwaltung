@@ -21,7 +21,12 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function index()
     {
-        //
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $ansprechpartnerliste = ansprechpartnerliste::paginate(25);
+            return view('ansprechpartnerliste.index', compact('ansprechpartnerliste'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -78,7 +83,12 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function show(ansprechpartnerliste $ansprechpartnerliste)
     {
-        //
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            return view('ansprechpartnerliste.show', compact('ansprechpartnerliste'));
+        } else {
+            return view('welcome');
+
+        }
     }
 
     /**
@@ -89,7 +99,12 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function edit(ansprechpartnerliste $ansprechpartnerliste)
     {
-        //
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+
+            return view('ansprechpartnerliste.edit', compact('ansprechpartnerliste'));
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
@@ -101,7 +116,27 @@ class AnsprechpartnerlisteController extends Controller
      */
     public function update(Request $request, ansprechpartnerliste $ansprechpartnerliste)
     {
-        //
+        if (in_array(Auth::user()->typ, ['admin', 'employe'])) {
+            $request->validate([
+                'ansprechpartner' => 'exists:ansprechpartner,Ansprechpartner_ID',
+                'firma' => 'exists:firmen,Firmen_ID',
+                'ziel' => 'exists:berufsziel,Berufsziel_ID'
+            ]);
+            $ansprechpartnerliste->update(array(
+                'Ansprechpartner_ID' => request('ansprechpartner'),
+                'Firmen_ID' => request('firma'),
+                'Berufsziel_ID' => request('ziel'),
+            ));
+            try {
+                $ansprechpartnerliste->save();
+            } catch (\Exception $e) {
+                return view('ansprechpartnerliste.edit', $ansprechpartnerliste)->withErrors($e->getMessage());
+            }
+            return view('ansprechpartnerliste.show', compact('ansprechpartnerliste'));
+        } else {
+            return view('welcome');
+
+        }
     }
 
     /**
@@ -116,9 +151,9 @@ class AnsprechpartnerlisteController extends Controller
             try {
                 $ansprechpartnerliste->delete();
             } catch (\Exception  $e) {
-                return view('ansprechpartner.show', $ansprechpartnerliste->ansprechpartner)->withErrors($e->getMessage());
+                return view('ansprechpartnerliste.show', $ansprechpartnerliste)->withErrors($e->getMessage());
             }
-            return url();
+            return $this->index();
         } else {
             return view('welcome');
         }

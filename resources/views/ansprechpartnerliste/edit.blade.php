@@ -21,16 +21,14 @@
     </div>
     <hr class="mb-4">
     <div class="form-group">
-        {{Form::open(array('route' => array('ansprechpartnerliste.store') ) )}}
-
-        <label for="ansprechpartner">Ansprechpartner</label>
+        {{Form::open(array('route' => array('ansprechpartnerliste.update',$ansprechpartnerliste),'method' => 'PUT' ) )}}
 
         <div class="input-group">
             <select name="ansprechpartner" class="form-control">
                 <option value="">"Bitte Ansprechpartner auswählen"</option>
                 @foreach ($ansprechpartner as $ansprechpartnerdatensatz)
                     <option
-                            @if ($ansprechpartnerdatensatz->Ansprechpartner_ID == old('ansprechpartner'))
+                            @if ($ansprechpartnerdatensatz->Ansprechpartner_ID == $ansprechpartnerliste->id)
                             selected
                             @endif
                             value="{{$ansprechpartnerdatensatz->Ansprechpartner_ID}}">
@@ -49,7 +47,7 @@
                 <option value="">"Bitte Firma auswählen"</option>
                 @foreach ($firmen as $firma)
                     <option
-                            @if ($firma->Firmen_ID == old('firma'))
+                            @if ($firma->Firmen_ID == $ansprechpartnerliste->Firmen_ID)
                             selected
                             @endif
                             value="{{$firma->Firmen_ID}}">
@@ -69,7 +67,7 @@
                 <option value="">"Bitte Berufsziel auswählen"</option>
                 @foreach ($berufsziele as $berusziel)
                     <option
-                            @if ($berusziel->Berufsziel_ID == old('ziel'))
+                            @if ($berusziel->Berufsziel_ID == $ansprechpartnerliste->Berufsziel_ID)
                             selected
                             @endif
                             value="{{$berusziel->Berufsziel_ID}}">
@@ -80,9 +78,12 @@
         </div>
 
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Ansprechpartner verbinden
+        <button class="btn btn-primary btn-lg btn-block" type="submit" value="store">Ansprechpartnerverbindung bearbeiten
         </button>
-
         {{ Form::close() }}
     </div>
+
+
+
+
 @endsection

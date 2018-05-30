@@ -67,7 +67,7 @@
 
     <hr class="mb-4">
     <?php $praktikantenliste = $firmen->praktika ?>
-    <h3>Praktikanten</h3>
+    <h3>Bewerbungen</h3>
     <div class="table-responsive">
         <table class="table table-hover table-striped">
             <tr>

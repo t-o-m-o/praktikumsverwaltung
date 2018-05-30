@@ -19,9 +19,7 @@ Route::get('/register', function () {
     return view('login');
 })->name('register');
 
-Route::get('ansprechpartnerliste/create', 'AnsprechpartnerlisteController@create')->name('ansprechpartnerliste.create');
-Route::post('ansprechpartnerliste', 'AnsprechpartnerlisteController@store')->name('ansprechpartnerliste.store');
-Route::delete('ansprechpartnerliste', 'AnsprechpartnerlisteController@destroy')->name('ansprechpartnerliste.destroy');;
+Route::resource('ansprechpartnerliste', 'AnsprechpartnerlisteController');
 Route::resource('ansprechpartner','AnsprechpartnerController');
 Route::resource('firmen', 'FirmenController', ['parameters' => ['firmen' => 'firmen']]);
 Route::resource('praktika','PraktikaController');

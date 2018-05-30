@@ -24,6 +24,6 @@ class ansprechpartnerliste extends Model
 
     public function firmen()
     {
-        return $this->hasMany(firmen::class,'Firmen_ID','Firmen_ID');
+        return $this->hasOne(firmen::class,'Firmen_ID','Firmen_ID');
     }
 }
