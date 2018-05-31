@@ -29,8 +29,7 @@
     use App\teilnehmer;
     use App\praktika;
 
-    //$teilnehmerliste->leftJoin('praktika', 'Teilnehmer_ID', '=', 'Teilnehmer_ID');
-    //$mitpraktikum = DB::table('praktika')->where('Status','zusage')->exists();
+
     $liste[] = null;
     $mitpraktikum = DB::table('teilnehmer')
         ->select('teilnehmer.Teilnehmer_ID', 'teilnehmer.Nachname',

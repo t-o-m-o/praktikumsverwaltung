@@ -38,17 +38,22 @@
             <?php $praktika = $teilnehmer->praktika; ?>
 
             @foreach($praktika as $praktikum)
-            <tr>
-                <td><a href="{{route('praktika.show',$praktikum)}}"> {{$praktikum->Praktikum_ID}}</a></td>
-                <td><a href="{{route('firmen.show',$praktikum->firmen)}}">{{ $praktikum->firmen->Firmenname}}</a>
-                </td>
-                <td><a href="{{route('praktika.show',$praktikum)}}">{{ $praktikum['Status'] }}</a></td>
-                <td>{{ $praktikum->praktikazeitraeume['Start'] }}</td>
-                <td>{{ $praktikum->praktikazeitraeume['Ende'] }}</td>
-                <?php $ansprechpartner = $praktikum->firmen->ansprechpartner->first()?>
-                <td><a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
-                </td>
-            </tr>
+                <tr>
+                    <td><a href="{{route('praktika.show',$praktikum)}}"> {{$praktikum->Praktikum_ID}}</a></td>
+                    <td><a href="{{route('firmen.show',$praktikum->firmen)}}">{{ $praktikum->firmen->Firmenname}}</a>
+                    </td>
+                    <td><a href="{{route('praktika.show',$praktikum)}}">{{ $praktikum['Status'] }}</a></td>
+                    <td>{{ $praktikum->praktikazeitraeume['Start'] }}</td>
+                    <td>{{ $praktikum->praktikazeitraeume['Ende'] }}</td>
+                    <?php $ansprechpartner = $praktikum->firmen->ansprechpartner->first()?>
+                    @isset($ansprechpartner)
+                        <td>
+                            <a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
+                        </td>
+                    @else
+                        <td>kein Ansprechpartner</td>
+                    @endisset
+                </tr>
             @endforeach
         </table>
 
