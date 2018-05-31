@@ -25,7 +25,7 @@
 
     <hr class="mb-4">
     <div class="table-responsive">
-        <h3>Praktika:</h3>
+        <h3>Bewerbungen:</h3>
         <table class="table table-hover table-striped">
             <tr>
                 <th>ID</th>
@@ -51,7 +51,6 @@
             </tr>
             @endforeach
         </table>
-        {{--ToDo Praktikaliste--}}
 
     </div>
 @endsection

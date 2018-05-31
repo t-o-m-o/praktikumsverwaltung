@@ -31,6 +31,7 @@
 
     //$teilnehmerliste->leftJoin('praktika', 'Teilnehmer_ID', '=', 'Teilnehmer_ID');
     //$mitpraktikum = DB::table('praktika')->where('Status','zusage')->exists();
+    $liste[] = null;
     $mitpraktikum = DB::table('teilnehmer')
         ->select('teilnehmer.Teilnehmer_ID', 'teilnehmer.Nachname',
             'teilnehmer.Vorname', 'praktika.Status', 'berufsziel.Berufszielbezeichnung',
@@ -64,12 +65,13 @@
         $ohnepraktikum = DB::table('teilnehmer')
             ->select('teilnehmer.Teilnehmer_ID','teilnehmer.Nachname','teilnehmer.Vorname','praktika.Status',
                 'praktika.Praktikum_ID','berufsziel.Berufszielbezeichnung','berufsziel.Berufsziel_ID')
-            ->where('Semester_ID',$semester->Semester_ID)
             ->leftJoin('praktika', 'teilnehmer.Teilnehmer_ID', '=', 'praktika.Teilnehmer_ID')
-            ->whereNotIn('teilnehmer.Teilnehmer_ID', $liste )
-            ->where('praktika.Status','<>','"zusage"')
-            ->orWhereNull('praktika.Status')
-            ->Join('berufsziel','teilnehmer.Berufsziel_ID','=','berufsziel.Berufsziel_ID')
+            ->Join('berufsziel', 'teilnehmer.Berufsziel_ID', '=', 'berufsziel.Berufsziel_ID')
+            ->where('Semester_ID',$semester->Semester_ID)
+            ->where(function ($query) {
+                $query->where('praktika.Status', '!=', '"zusage"')
+                    ->orwhereNull('praktika.Status');
+            })
             ->get();
     ?>
 
@@ -83,6 +85,7 @@
                 <th>Status</th>
             </tr>
             @foreach($ohnepraktikum as $teilnehmer)
+                @if(!in_array($teilnehmer->Teilnehmer_ID,$liste))
                 <tr>
                     <td><a href="{{route('berufsziel.show',$teilnehmer->Berufsziel_ID)}}">{{$teilnehmer->Berufszielbezeichnung}}</a></td>
                     <td><a href="{{route('teilnehmer.show',$teilnehmer->Teilnehmer_ID)}}"> {{$teilnehmer->Nachname}}</a></td>
@@ -93,6 +96,7 @@
                         <td>keine Bewerbungen</td>
                     @endisset
                 </tr>
+                @endif
             @endforeach
         </table>
     </div>

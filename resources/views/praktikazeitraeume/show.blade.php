@@ -13,15 +13,15 @@
                 <a href="{{route('praktikazeitraeume.index')}}" class="btn btn-info"> Zeiträume</a>
             </div>
             <div class="ml-1">
-            <a href="{{route('praktikazeitraeume.edit',$praktikazeitraeume)}}" class="btn btn-warning"> Zeitraum
-                bearbeiten</a>
-        </div>
+                <a href="{{route('praktikazeitraeume.edit',$praktikazeitraeume)}}" class="btn btn-warning"> Zeitraum
+                    bearbeiten</a>
+            </div>
             <div class="ml-1">
-            {{ Form::open(array('route' => array('praktikazeitraeume.destroy',$praktikazeitraeume),'method' => 'DELETE' ) )}}
-            {{ Form::submit('Zeitraum löschen', array('class' => 'btn btn-danger')) }}
-            {{ Form::close() }}
+                {{ Form::open(array('route' => array('praktikazeitraeume.destroy',$praktikazeitraeume),'method' => 'DELETE' ) )}}
+                {{ Form::submit('Zeitraum löschen', array('class' => 'btn btn-danger')) }}
+                {{ Form::close() }}
+            </div>
         </div>
-    </div>
     </div>
     <hr class="mb-4">
     <?php $praktika = $praktikazeitraeume->praktika ?>
@@ -55,9 +55,13 @@
                     </td>
                     <td><a href="{{route('praktika.show',$praktikum)}}">{{ $praktikum['Status'] }}</a></td>
                     <?php $ansprechpartner = $praktikum->firmen->ansprechpartner->first()?>
-                    <td>
-                        <a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
-                    </td>
+                    @isset($ansprechpartner)
+                        <td>
+                            <a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
+                        </td>
+                    @else
+                        <td>kein Ansprechpartner</td>
+                    @endisset
                 </tr>
             @endforeach
         </table>

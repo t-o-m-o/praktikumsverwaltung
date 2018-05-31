@@ -59,9 +59,13 @@
                 </td>
                 <td><a href="{{route('praktika.show',$praktikum)}}">{{ $praktikum['Status'] }}</a></td>
                 <?php $ansprechpartner = $praktikum->firmen->ansprechpartner->first()?>
-                <td>
-                    <a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
-                </td>
+                @isset($ansprechpartner)
+                    <td>
+                        <a href="{{route('ansprechpartner.show',$ansprechpartner)}}">{{ $ansprechpartner->Nachname}}</a>
+                    </td>
+                @else
+                    <td>kein Ansprechpartner</td>
+                @endisset
             </tr>
         </table>
     </div>
