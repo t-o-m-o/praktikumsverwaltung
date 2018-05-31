@@ -25,19 +25,24 @@
             @foreach($ansprechpartner as $ansprechpartnerdatensatz)
                 <tr>
                     <td>
-                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}"> {{$ansprechpartnerdatensatz->Ansprechpartner_ID}}</a>
+                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}">
+                            {{$ansprechpartnerdatensatz->Ansprechpartner_ID}}</a>
                     </td>
                     <td>
-                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}"> {{$ansprechpartnerdatensatz->Nachname}}</a>
+                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}">
+                            {{$ansprechpartnerdatensatz->Nachname}}</a>
                     </td>
                     <td>
-                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}"> {{$ansprechpartnerdatensatz->Vorname}}</a>
+                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}">
+                            {{$ansprechpartnerdatensatz->Vorname}}</a>
                     </td>
                     <td>
-                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}"> {{$ansprechpartnerdatensatz->Email}}</a>
+                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}">
+                            {{$ansprechpartnerdatensatz->Email}}</a>
                     </td>
                     <td>
-                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}"> {{$ansprechpartnerdatensatz->Telefon}}</a>
+                        <a href="{{route('ansprechpartner.show',$ansprechpartnerdatensatz)}}">
+                            {{$ansprechpartnerdatensatz->Telefon}}</a>
                     </td>
                 </tr>
             @endforeach
